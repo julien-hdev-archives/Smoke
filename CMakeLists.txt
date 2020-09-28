@@ -15,7 +15,7 @@ find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 
-file(GLOB_RECURSE SRC_FILES src/*)
+file(GLOB_RECURSE SRC_FILES src/* vendor/enTT/include/*)
 
 add_executable(${PROJECT_NAME} ${SRC_FILES})
 
