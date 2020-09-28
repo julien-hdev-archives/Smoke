@@ -22,6 +22,7 @@ file(GLOB_RECURSE VENDOR_FILES vendor/enTT/include/*)
 file(GLOB_RECURSE QML_FILES qml/*)
 file(GLOB_RECURSE SHADER_FILES shaders/*)
 
+include_directories(${CMAKE_SOURCE_DIR}/src/)
 # Recreate folder architecture inside Visual Studio (might work for other IDEs as well)
 # src
 foreach(_source IN ITEMS ${SRC_FILES})
