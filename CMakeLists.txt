@@ -18,6 +18,7 @@ set(CMAKE_AUTOMOC ON)
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
 
 file(GLOB_RECURSE SRC_FILES src/*)
+file(GLOB_RECURSE VENDOR_FILES vendor/enTT/include/*)
 file(GLOB_RECURSE QML_FILES qml/*)
 file(GLOB_RECURSE SHADER_FILES shaders/*)
 
@@ -43,9 +44,16 @@ foreach(_source IN ITEMS ${SHADER_FILES})
     string(REPLACE "/" "\\" _group_path "${_group_path}")
     source_group("${_group_path}" FILES "${_source}")
 endforeach()
+# vendor
+foreach(_source IN ITEMS ${VENDOR_FILES})
+    get_filename_component(_source_path "${_source}" PATH)
+    string(REPLACE "${CMAKE_SOURCE_DIR}" "" _group_path "${_source_path}")
+    string(REPLACE "/" "\\" _group_path "${_group_path}")
+    source_group("${_group_path}" FILES "${_source}")
+endforeach()
 
 add_executable(${PROJECT_NAME} ${SRC_FILES}
-    ${QML_FILES} ${SHADER_FILES}) # QML_FILES and SHADER_FILES are added here only so that they will appear in the solution explorer of Visual Studio
+    ${QML_FILES} ${SHADER_FILES} ${VENDOR_FILES}) # QML_FILES and SHADER_FILES are added here only so that they will appear in the solution explorer of Visual Studio
 
 # Setup working directory in Visual Studio :
 set_target_properties(
