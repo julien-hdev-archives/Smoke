@@ -1,5 +1,6 @@
 bin/
-build/
+build/*
+!build/_build.bat
 
 # Prerequisites
 *.d
