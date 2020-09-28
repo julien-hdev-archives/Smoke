@@ -27,7 +27,6 @@ add_executable(${PROJECT_NAME}
   src/Scene.cpp
   src/Triangle.hpp
   src/Triangle.cpp
-  src/main.qml
 )
 
 # Setup working directory in Visual Studio :
