@@ -15,19 +15,9 @@ find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 
-add_executable(${PROJECT_NAME}
-  src/main.cpp
-  src/App.hpp
-  src/App.cpp
-  src/FrameBufferObject.hpp
-  src/FrameBufferObject.cpp
-  src/MessageHandler.hpp
-  src/MessageHandler.cpp
-  src/Scene.hpp
-  src/Scene.cpp
-  src/Triangle.hpp
-  src/Triangle.cpp
-)
+file(GLOB_RECURSE SRC_FILES src/*)
+
+add_executable(${PROJECT_NAME} ${SRC_FILES})
 
 # Setup working directory in Visual Studio :
 set_target_properties(
