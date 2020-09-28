@@ -11,13 +11,41 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set_property( GLOBAL PROPERTY USE_FOLDERS ON)
+
 find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
 
 file(GLOB_RECURSE SRC_FILES src/*)
+file(GLOB_RECURSE QML_FILES qml/*)
+file(GLOB_RECURSE SHADER_FILES shaders/*)
 
-add_executable(${PROJECT_NAME} ${SRC_FILES})
+# Recreate folder architecture inside Visual Studio (might work for other IDEs as well)
+# src
+foreach(_source IN ITEMS ${SRC_FILES})
+    get_filename_component(_source_path "${_source}" PATH)
+    string(REPLACE "${CMAKE_SOURCE_DIR}" "" _group_path "${_source_path}")
+    string(REPLACE "/" "\\" _group_path "${_group_path}")
+    source_group("${_group_path}" FILES "${_source}")
+endforeach()
+# qml
+foreach(_source IN ITEMS ${QML_FILES})
+    get_filename_component(_source_path "${_source}" PATH)
+    string(REPLACE "${CMAKE_SOURCE_DIR}" "" _group_path "${_source_path}")
+    string(REPLACE "/" "\\" _group_path "${_group_path}")
+    source_group("${_group_path}" FILES "${_source}")
+endforeach()
+# shaders
+foreach(_source IN ITEMS ${SHADER_FILES})
+    get_filename_component(_source_path "${_source}" PATH)
+    string(REPLACE "${CMAKE_SOURCE_DIR}" "" _group_path "${_source_path}")
+    string(REPLACE "/" "\\" _group_path "${_group_path}")
+    source_group("${_group_path}" FILES "${_source}")
+endforeach()
+
+add_executable(${PROJECT_NAME} ${SRC_FILES}
+    ${QML_FILES} ${SHADER_FILES}) # QML_FILES and SHADER_FILES are added here only so that they will appear in the solution explorer of Visual Studio
 
 # Setup working directory in Visual Studio :
 set_target_properties(
