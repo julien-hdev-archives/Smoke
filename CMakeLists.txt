@@ -22,7 +22,10 @@ file(GLOB_RECURSE VENDOR_FILES vendor/enTT/include/*)
 file(GLOB_RECURSE QML_FILES qml/*)
 file(GLOB_RECURSE SHADER_FILES shaders/*)
 
-include_directories(${CMAKE_SOURCE_DIR}/src/)
+include_directories(
+    ${CMAKE_SOURCE_DIR}/src/
+    ${CMAKE_SOURCE_DIR}/vendor/enTT/include/
+)
 # Recreate folder architecture inside Visual Studio (might work for other IDEs as well)
 # src
 foreach(_source IN ITEMS ${SRC_FILES})
@@ -80,3 +83,7 @@ add_custom_command(
     ${CMAKE_SOURCE_DIR}/shaders/
     $<TARGET_FILE_DIR:${PROJECT_NAME}>/shaders
 )
+
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DSK_DEBUG -DSK_ENABLE_ASSERTS")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DSK_RELEASE")
+
