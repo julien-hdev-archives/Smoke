@@ -1,5 +1,6 @@
 #include "FrameBufferObject.hpp"
 #include "Scene/Scene.hpp"
+#include "Scene/Triangle2D.hpp"
 
 #include <QtGui/QOpenGLFramebufferObject>
 #include <QtGui/QOpenGLContext>
@@ -7,15 +8,10 @@
 
 #include <QtQuick/QQuickWindow>
 
-
-/****
-***** FrameBufferObjectRenderer declaration
-****/
-
 class FrameBufferObjectRenderer : public QQuickFramebufferObject::Renderer {
     public:
         FrameBufferObjectRenderer() {
-            _scene.initialize();
+            _scene.CreateTriangle2D(); //TODO : Move creation to another class
         }
         ~FrameBufferObjectRenderer() = default;
 
@@ -24,7 +20,7 @@ class FrameBufferObjectRenderer : public QQuickFramebufferObject::Renderer {
         }
 
         void render() override {
-            _scene.render();
+            _scene.OnRender();
             update();
             _window->resetOpenGLState();
         }
@@ -40,11 +36,6 @@ class FrameBufferObjectRenderer : public QQuickFramebufferObject::Renderer {
         Scene _scene;
         QQuickWindow* _window;
 };
-
-
-/****
-***** FrameBufferObject implementation 
-****/
 
 FrameBufferObject::FrameBufferObject(QQuickItem* parent)
     : QQuickFramebufferObject(parent) 
