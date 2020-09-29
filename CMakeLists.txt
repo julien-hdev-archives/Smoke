@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(Smoke)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin/${CMAKE_BUILD_TYPE})
@@ -25,7 +25,9 @@ file(GLOB_RECURSE SHADER_FILES shaders/*)
 include_directories(
     ${CMAKE_SOURCE_DIR}/src/
     ${CMAKE_SOURCE_DIR}/vendor/enTT/include/
+    ${CMAKE_SOURCE_DIR}/vendor/glm/
 )
+
 # Recreate folder architecture inside Visual Studio (might work for other IDEs as well)
 # src
 foreach(_source IN ITEMS ${SRC_FILES})
