@@ -12,7 +12,7 @@
 #include "Utility/File.hpp"
 
 	Scene::Scene()
-        : _fullscreenShader(MyFile::LoadToString("shaders/fullscreen.fs.glsl"))
+        : _fullscreenShader(MyFile::LoadToString("shaders/fullscreen2.fs.glsl"))
 	{
         // Render configuration 
         // TODO : Move rendering to another class
@@ -82,33 +82,33 @@
 	void Scene::OnRender()
     {
         
-        std::vector<glm::vec4> vertices;
-
-            // Recup all vertices to render.
-			auto group = m_Registry.group<MeshComp>(entt::get<TransformComp>);
-			for (auto entity : group)
-			{
-				auto [mesh, transform] = group.get<MeshComp, TransformComp>(entity);
-
-                for (uint32_t i = 0; i < mesh.VertexCount; i++)
-                {
-                    vertices.push_back(transform.Transform * mesh.Vertices[i]);
-                }
-			}
-
-            //Reallocate the VertexBuffer
-           _positionsBuffer.bind();
-           _positionsBuffer.allocate(vertices.data(), vertices.size() * sizeof(glm::vec4));
-
-            QOpenGLFunctions* functions = QOpenGLContext::currentContext()->functions();
-            functions->glClearColor(0, 0, 1.f, 1.0);
-            functions->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-            // Render
-            _vao.bind();
-            _program.bind();
-            functions->glDrawArrays(GL_TRIANGLES, 0, vertices.size());
-            _vao.release();
-            _fullscreenShader.draw();
+        //std::vector<glm::vec4> vertices;
+        //
+        //// Recup all vertices to render.
+		//auto group = m_Registry.group<MeshComp>(entt::get<TransformComp>);
+		//for (auto entity : group)
+		//{
+		//	auto [mesh, transform] = group.get<MeshComp, TransformComp>(entity);
+        //
+        //    for (uint32_t i = 0; i < mesh.VertexCount; i++)
+        //    {
+        //        vertices.push_back(transform.Transform * mesh.Vertices[i]);
+        //    }
+		//}
+        //
+        ////Reallocate the VertexBuffer
+        //_positionsBuffer.bind();
+        //_positionsBuffer.allocate(vertices.data(), vertices.size() * sizeof(glm::vec4));
+        
+        QOpenGLFunctions* functions = QOpenGLContext::currentContext()->functions();
+        functions->glClearColor(0.f, 0.f, 0.f, 1.f);
+        functions->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+        
+        // Render
+        //_vao.bind();
+        //_program.bind();
+        //functions->glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+        //_vao.release();
+        _fullscreenShader.draw();
 	}
 
