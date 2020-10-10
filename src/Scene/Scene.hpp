@@ -28,6 +28,8 @@ class Scene {
 #include <QtGui/QOpenGLBuffer>
 #include <QtGui/QOpenGLVertexArrayObject>
 
+#include "Renderer/FullscreenShader.hpp"
+
 	class Entity;
 	class Mesh;
 	class Triangle2D;
@@ -52,6 +54,8 @@ class Scene {
 		//QOpenGLBuffer _colorsBuffer = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
 		QOpenGLVertexArrayObject _vao;
 		QOpenGLShaderProgram _program;
+
+		FullscreenShader _fullscreenShader;
 
 		friend class Entity;
 		friend class Mesh;

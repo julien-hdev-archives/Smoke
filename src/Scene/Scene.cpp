@@ -7,7 +7,12 @@
 #include <glm/glm.hpp>
 #include <QtGui/QOpenGLFunctions>
 
+#include "Renderer/Renderer.hpp"
+
+#include "Utility/File.hpp"
+
 	Scene::Scene()
+        : _fullscreenShader(MyFile::LoadToString("shaders/fullscreen.fs.glsl"))
 	{
         // Render configuration 
         // TODO : Move rendering to another class
@@ -96,7 +101,7 @@
            _positionsBuffer.allocate(vertices.data(), vertices.size() * sizeof(glm::vec4));
 
             QOpenGLFunctions* functions = QOpenGLContext::currentContext()->functions();
-            functions->glClearColor(0, 0, 0, 1.0);
+            functions->glClearColor(0, 0, 1.f, 1.0);
             functions->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
             // Render
@@ -104,5 +109,6 @@
             _program.bind();
             functions->glDrawArrays(GL_TRIANGLES, 0, vertices.size());
             _vao.release();
+            _fullscreenShader.draw();
 	}
 
