@@ -41,7 +41,7 @@ out vec4 fFragColor;
 #define UNIFORM_FOG_DENSITY 0
 #define UNIFORM_LIGHT_SPEED 1
 
-const float iTime = 0.;
+uniform float iTime;
 const vec2 iMouse = vec2(0.);
 const vec2 iResolution = vec2(800.);
 
@@ -555,7 +555,7 @@ vec3 GammaCorrect(vec3 color)
 
 void main()
 {
-    vec2 uv = gl_FragCoord.xy / iResolution.xy;
+    vec2 uv = vUV;
     
     float aspectRatio = iResolution.x /  iResolution.y; 
     float lensWidth = Camera.LensHeight * aspectRatio;

@@ -6,9 +6,13 @@
 #include <QtQml>
 #include <QSurfaceFormat>
 
+#include "Utility/Time.hpp"
+
 App::App(int &argc, char **argv)
     : QGuiApplication(argc, argv) 
 {
+    Time::Initialize();
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     qmlRegisterType<FrameBufferObject>("SceneGraphRendering", 1, 0, "FrameBufferObject");
 

@@ -10,6 +10,7 @@
 #include "Renderer/Renderer.hpp"
 
 #include "Utility/File.hpp"
+#include "Utility/Time.hpp"
 
 	Scene::Scene()
         : _fullscreenShader(MyFile::LoadToString("shaders/fullscreen2.fs.glsl"))
@@ -109,6 +110,8 @@
         //_program.bind();
         //functions->glDrawArrays(GL_TRIANGLES, 0, vertices.size());
         //_vao.release();
+        _fullscreenShader.get().bind();
+        _fullscreenShader.get().setUniformValue("iTime", Time::Elapsed() / 1000.f);
         _fullscreenShader.draw();
 	}
 
