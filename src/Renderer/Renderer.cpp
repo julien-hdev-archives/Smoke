@@ -17,9 +17,9 @@ void Renderer::Initialize() {
         // Vertex buffer
         float vertices[] = {
             // Pos       UV
-            -1.f, -1.f,  0.f, 0.f,
-             3.f, -1.f,  2.f, 0.f,
-            -1.f,  3.f,  0.f, 2.f
+            -1.f,  1.f,  0.f, 0.f,
+             3.f,  1.f,  2.f, 0.f,
+            -1.f, -3.f,  0.f, 2.f
         };
 
         if (!s_fullscreenPosAndUV_VBO.create())
