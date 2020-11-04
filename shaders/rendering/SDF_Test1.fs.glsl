@@ -5,8 +5,17 @@
 varying vec2 vUV;
 out vec4 fFragColor;
 
+uniform float u_AbsorptionCoefficient;
+uniform float u_LightAttenuationFactor;
+uniform float u_AbsorptionCutoff;
+uniform float u_MarchMultiplier;
+uniform int u_MaxVolumeMarchSteps;
+uniform int u_MaxVolumeLightMarchSteps;
+uniform int u_MaxSdfSphereSteps;
+uniform int u_MaxOpaqueShadowMarchSteps;
+
 // Created by Christopher Wallis
-#define PI 3.14
+#define PI 3.141592654
 
 #define NUM_LIGHTS 3
 #define NUM_LIGHT_COLORS 3
@@ -15,33 +24,10 @@ out vec4 fFragColor;
 #define LIGHT_BASE_MATERIAL_ID 1
 #define NUM_MATERIALS (LIGHT_BASE_MATERIAL_ID + NUM_LIGHTS)
 
-#define PERFORMANCE_MODE 1
-
 #define INVALID_MATERIAL_ID int(-1)
 #define LARGE_NUMBER 1e20
 #define EPSILON 0.0001
-#define MAX_SDF_SPHERE_STEPS 15
-uniform float u_AbsorptionCoefficient;
 #define CAST_VOLUME_SHADOW_ON_OPAQUES 1
-
-#if PERFORMANCE_MODE
-#define MAX_VOLUME_MARCH_STEPS 20
-#define MAX_VOLUME_LIGHT_MARCH_STEPS 4
-#define ABSORPTION_CUTOFF 0.25
-#define MARCH_MULTIPLIER 1.8
-#define LIGHT_ATTENUATION_FACTOR 2.0
-#define MAX_OPAQUE_SHADOW_MARCH_STEPS 10
-#else
-#define MAX_VOLUME_MARCH_STEPS 50
-#define MAX_VOLUME_LIGHT_MARCH_STEPS 25
-#define ABSORPTION_CUTOFF 0.01
-#define MARCH_MULTIPLIER 1.0
-#define LIGHT_ATTENUATION_FACTOR 1.65
-#define MAX_OPAQUE_SHADOW_MARCH_STEPS 25
-#endif
-
-#define UNIFORM_FOG_DENSITY 0
-#define UNIFORM_LIGHT_SPEED 1
 
 const vec2 iMouse = vec2(0.);
 const vec2 iResolution = vec2(800.);
@@ -82,13 +68,8 @@ vec3 GetLightColor(int lightIndex)
 OrbLightDescription GetLight(int lightIndex)
 {
     const float lightMultiplier = 17.0f;
-#if UNIFORM_LIGHT_SPEED
     float theta = iTime * 0.7 + float(lightIndex) * PI * 2.0 / float(NUM_LIGHT_COLORS);
     float radius = 18.5f;
-#else
-    float theta = iTime * 0.4 * (float(lightIndex) + 1.0f);
-    float radius = 19.0f + float(lightIndex) * 2.0;
-#endif
     
     OrbLightDescription orbLight;
     orbLight.Position = vec3(radius * cos(theta), 6.0 + sin(theta * 2.0) * 2.5, radius * sin(theta));
@@ -100,7 +81,7 @@ OrbLightDescription GetLight(int lightIndex)
 
 float GetLightAttenuation(float distanceToLight)
 {
-    return 1.0 / pow(distanceToLight, LIGHT_ATTENUATION_FACTOR);
+    return 1.0 / pow(distanceToLight, u_LightAttenuationFactor);
 }
    
 
@@ -250,7 +231,7 @@ float IntersectVolumetric(in vec3 rayOrigin, in vec3 rayDirection, float maxT)
     // ray marching with fixed steps
 	float precis = 0.5; 
     float t = 0.0f;
-    for(int i=0; i<MAX_SDF_SPHERE_STEPS; i++ )
+    for(int i=0; i<u_MaxSdfSphereSteps; i++ )
     {
 	    float result = SDF( rayOrigin+rayDirection*t);
         if( result < (precis) || t>maxT ) break;
@@ -275,12 +256,8 @@ float GetFogDensity(vec3 position, float sdfDistance)
     const float maxSDFMultiplier = 1.0;
     bool insideSDF = sdfDistance < 0.0;
     float sdfMultiplier = insideSDF ? min(abs(sdfDistance), maxSDFMultiplier) : 0.0;
- 
-#if UNIFORM_FOG_DENSITY
+
     return sdfMultiplier;
-#else
-   return sdfMultiplier * abs(fbm_4(position / 6.0) + 0.5);
-#endif
 }
 
 float BeerLambert(float absorption, float dist)
@@ -296,7 +273,7 @@ float GetLightVisiblity(in vec3 rayOrigin, in vec3 rayDirection, in float maxT, 
     for(int i = 0; i < maxSteps; i++)
     {                       
         t += max(marchSize, signedDistance);
-        if(t > maxT || lightVisibility < ABSORPTION_CUTOFF) break;
+        if(t > maxT || lightVisibility < u_AbsorptionCutoff) break;
 
         vec3 position = rayOrigin + t*rayDirection;
 
@@ -335,8 +312,8 @@ void CalculateLighting(vec3 position, vec3 normal, vec3 reflectionDirection, Mat
         #if CAST_VOLUME_SHADOW_ON_OPAQUES
         if(!IsColorInsignificant(lightColor))
         {
-            const float shadowMarchSize = 0.65f * MARCH_MULTIPLIER;
-            lightVisiblity = GetLightVisiblity(position, lightDirection, lightDistance, MAX_OPAQUE_SHADOW_MARCH_STEPS, shadowMarchSize); 
+            float shadowMarchSize = 0.65f * u_MarchMultiplier;
+            lightVisiblity = GetLightVisiblity(position, lightDirection, lightDistance, u_MaxOpaqueShadowMarchSteps, shadowMarchSize); 
         }
         #endif
         
@@ -369,13 +346,13 @@ vec3 Render( in vec3 rayOrigin, in vec3 rayDirection)
     if(volumeDepth > 0.0)
     {
         const vec3 volumeAlbedo = vec3(0.8);
-        const float marchSize = 0.6f * MARCH_MULTIPLIER;
+        float marchSize = 0.6f * u_MarchMultiplier;
         float distanceInVolume = 0.0f;
         float signedDistance = 0.0;
-        for(int i = 0; i < MAX_VOLUME_MARCH_STEPS; i++)
+        for(int i = 0; i < u_MaxVolumeMarchSteps; i++)
         {
             volumeDepth += max(marchSize, signedDistance);
-            if(volumeDepth > depth || opaqueVisiblity < ABSORPTION_CUTOFF) break;
+            if(volumeDepth > depth || opaqueVisiblity < u_AbsorptionCutoff) break;
             
             vec3 position = rayOrigin + volumeDepth*rayDirection;
 
@@ -397,8 +374,8 @@ vec3 Render( in vec3 rayOrigin, in vec3 rayDirection)
                     vec3 lightColor = GetLight(lightIndex).LightColor * GetLightAttenuation(lightDistance); 
                     if(IsColorInsignificant(lightColor)) continue;
                     
-                    const float lightMarchSize = 0.65f * MARCH_MULTIPLIER;
-                    float lightVisiblity = GetLightVisiblity(position, lightDirection, lightDistance, MAX_VOLUME_LIGHT_MARCH_STEPS, lightMarchSize); 
+                    float lightMarchSize = 0.65f * u_MarchMultiplier;
+                    float lightVisiblity = GetLightVisiblity(position, lightDirection, lightDistance, u_MaxVolumeLightMarchSteps, lightMarchSize); 
                     volumetricColor += absorptionFromMarch * lightVisiblity * volumeAlbedo * lightColor;
                 }
                 volumetricColor += absorptionFromMarch * volumeAlbedo * GetAmbientLight();
@@ -406,7 +383,7 @@ vec3 Render( in vec3 rayOrigin, in vec3 rayDirection)
         }
     }
     
-    if( materialID != INVALID_MATERIAL_ID && opaqueVisiblity > ABSORPTION_CUTOFF)
+    if( materialID != INVALID_MATERIAL_ID && opaqueVisiblity > u_AbsorptionCutoff)
     {
         vec3 position = rayOrigin + t*rayDirection;
         Material material = GetMaterial(materialID, position);
