@@ -1,9 +1,6 @@
-//? #version 330
+//? #version 330 // More info on those special comments : https://marketplace.visualstudio.com/items?itemName=DanielScherzer.GLSL
 
 //? float SDF(vec3 p);
-
-varying vec2 vUV;
-out vec4 fFragColor;
 
 uniform float u_AbsorptionCoefficient;
 uniform float u_LightAttenuationFactor;
@@ -14,7 +11,10 @@ uniform int u_MaxVolumeLightMarchSteps;
 uniform int u_MaxSdfSphereSteps;
 uniform int u_MaxOpaqueShadowMarchSteps;
 
-// Created by Christopher Wallis
+varying vec2 vUV;
+uniform float u_AspectRatio;
+
+// Adapted from Christopher Wallis' great article https://wallisc.github.io/rendering/2020/05/02/Volumetric-Rendering-Part-2.html
 #define PI 3.141592654
 
 #define NUM_LIGHTS 3
@@ -28,9 +28,6 @@ uniform int u_MaxOpaqueShadowMarchSteps;
 #define LARGE_NUMBER 1e20
 #define EPSILON 0.0001
 #define CAST_VOLUME_SHADOW_ON_OPAQUES 1
-
-const vec2 iMouse = vec2(0.);
-const vec2 iResolution = vec2(800.);
 
 struct CameraDescription
 {
@@ -409,16 +406,6 @@ mat3 GetViewMatrix(float xRotationFactor)
                 -sin(xRotation),0.0, cos(xRotation));
 }
 
-float GetCameraPositionYOffset()
-{
-    return 100.0 * (iMouse.y / iResolution.y);
-}
-
-float GetRotationFactor()
-{
-    return iMouse.x / iResolution.x;
-}
-
 vec3 GammaCorrect(vec3 color) 
 {
     return pow(color, vec3(1.0/2.2));
@@ -428,10 +415,9 @@ void main()
 {
     vec2 uv = vUV;
     
-    float aspectRatio = iResolution.x /  iResolution.y; 
-    float lensWidth = Camera.LensHeight * aspectRatio;
+    float lensWidth = Camera.LensHeight * u_AspectRatio;
     
-    vec3 CameraPosition = Camera.Position + GetCameraPositionYOffset();
+    vec3 CameraPosition = Camera.Position;
     
     vec3 NonNormalizedCameraView = Camera.LookAt - CameraPosition;
     float ViewLength = length(NonNormalizedCameraView);
@@ -441,8 +427,7 @@ void main()
     
     // Pivot the camera around the look at point
     {
-        float rotationFactor = GetRotationFactor();
-        mat3 viewMatrix = GetViewMatrix(rotationFactor);
+        mat3 viewMatrix = GetViewMatrix(0.);
         CameraView = CameraView * viewMatrix;
         lensPoint = Camera.LookAt - CameraView * ViewLength;
     }
@@ -460,5 +445,5 @@ void main()
     vec3 rayDirection = normalize(lensPoint - focalPoint);
     
     vec3 color = Render(rayOrigin, rayDirection);
-    fFragColor=vec4( GammaCorrect(clamp(color, 0.0, 1.0)), 1.0 );
+    gl_FragColor = vec4( GammaCorrect(clamp(color, 0.0, 1.0)), 1.0 );
 }

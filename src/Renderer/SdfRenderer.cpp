@@ -15,6 +15,7 @@ void SdfRenderer::setScene(const std::string& sceneSrc) {
 void SdfRenderer::render() {
 	_shader.get().bind();
 	_shader.get().setUniformValue("iTime", Time::Elapsed() / 1000.f); // TODO it is more the responsibility of the scene than the renderer to know whether this kind of uniform is required
+	_shader.get().setUniformValue("u_AspectRatio", 1.0f); // TODO set me properly
 	_shader.get().setUniformValue("u_AbsorptionCoefficient", _params.absorptionCoefficient);
 	_shader.get().setUniformValue("u_LightAttenuationFactor", _params.lightAttenuationFactor);
 	_shader.get().setUniformValue("u_AbsorptionCutoff", _params.absorptionCutoff);
