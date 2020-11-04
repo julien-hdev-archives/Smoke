@@ -8,7 +8,7 @@ std::string MyFile::LoadToString(const std::string& filepath) {
     std::string res;
     std::ifstream stream(filepath);
     if (!stream.is_open()) {
-        qFatal("[MyFile::LoadToString] Failed to open file '{}'", filepath);
+        qFatal("[MyFile::LoadToString] Failed to open file '%s'", filepath.c_str());
         return "";
     }
     stream.seekg(0, std::ios::end);
