@@ -12,9 +12,8 @@
 #include "Utility/File.hpp"
 
 	Scene::Scene()
-        : _sdfRenderer(MyFile::LoadToString("shaders/fullscreen2.fs.glsl"))
 	{
-        
+		_sdfRenderer.setScene(MyFile::LoadToString("shaders/simulation/SDF_Test1.fs.glsl"));
 	}
  
 	Entity Scene::CreateEntity(const std::string& name, const TransformComp& transform)

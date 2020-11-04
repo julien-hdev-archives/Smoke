@@ -1,15 +1,15 @@
 #include "SdfRenderer.hpp"
 
 #include "Utility/Time.hpp"
+#include "Utility/File.hpp"
 
-SdfRenderer::SdfRenderer(const std::string& sceneShaderSrc, SdfRenderer_Params params)
-	: _params(params)
-{
-	setScene(sceneShaderSrc);
-}
+SdfRenderer::SdfRenderer(SdfRenderer_Params params)
+	: _params(params),
+	  _rendererSrc(MyFile::LoadToString("shaders/rendering/SDF_Test1.fs.glsl")) // We don't provide choice for the rendering code used because setting the uniforms in render() depends on the render code
+{}
 
-void SdfRenderer::setScene(const std::string& sceneShaderSrc) {
-	_shader.compile(sceneShaderSrc);
+void SdfRenderer::setScene(const std::string& sceneSrc) {
+	_shader.compile("#version 330\n" + sceneSrc + _rendererSrc);
 }
 
 void SdfRenderer::render() {
