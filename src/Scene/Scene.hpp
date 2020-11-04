@@ -1,34 +1,11 @@
-
-/*#pragma once
-
-#include "Triangle.hpp"
-
-class Scene {
-    public:
-        Scene() = default;
-        ~Scene() = default;
-
-        void initialize();
-        void render();
-
-    private:
-        Triangle _triangle;
-};*/
-
-
 #pragma once
-//#include "Triangle.hpp"
-//#include "Mesh.hpp"
+
 #include "Scene/Components.hpp"
-//#include "Triang.hpp"
 #include <entt.hpp>
 
 #include <QVector>
-#include <QtGui/QOpenGLShaderProgram>
-#include <QtGui/QOpenGLBuffer>
-#include <QtGui/QOpenGLVertexArrayObject>
 
-#include "Renderer/FullscreenShader.hpp"
+#include "Renderer/SdfRenderer.hpp"
 
 	class Entity;
 	class Mesh;
@@ -47,15 +24,7 @@ class Scene {
 
 	private:
 		entt::registry m_Registry;
-
-		// Render Element 
-		// TODO : Move rendering to another class
-		QOpenGLBuffer _positionsBuffer = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
-		//QOpenGLBuffer _colorsBuffer = QOpenGLBuffer(QOpenGLBuffer::VertexBuffer);
-		QOpenGLVertexArrayObject _vao;
-		QOpenGLShaderProgram _program;
-
-		FullscreenShader _fullscreenShader;
+		SdfRenderer _sdfRenderer;
 
 		friend class Entity;
 		friend class Mesh;

@@ -19,7 +19,7 @@ out vec4 fFragColor;
 #define LARGE_NUMBER 1e20
 #define EPSILON 0.0001
 #define MAX_SDF_SPHERE_STEPS 15
-#define ABSORPTION_COEFFICIENT 0.5
+uniform float u_AbsorptionCoefficient;
 #define CAST_VOLUME_SHADOW_ON_OPAQUES 1
 
 #if PERFORMANCE_MODE
@@ -409,7 +409,7 @@ float GetLightVisiblity(in vec3 rayOrigin, in vec3 rayDirection, in float maxT, 
         signedDistance = QueryVolumetricDistanceField(position);
         if(signedDistance < 0.0)
         {
-            lightVisibility *= BeerLambert(ABSORPTION_COEFFICIENT * GetFogDensity(position, signedDistance), marchSize);
+            lightVisibility *= BeerLambert(u_AbsorptionCoefficient * GetFogDensity(position, signedDistance), marchSize);
         }
     }
     return lightVisibility;
@@ -490,7 +490,7 @@ vec3 Render( in vec3 rayOrigin, in vec3 rayDirection)
             {
                 distanceInVolume += marchSize;
                 float previousOpaqueVisiblity = opaqueVisiblity;
-                opaqueVisiblity *= BeerLambert(ABSORPTION_COEFFICIENT * GetFogDensity(position, signedDistance), marchSize);
+                opaqueVisiblity *= BeerLambert(u_AbsorptionCoefficient * GetFogDensity(position, signedDistance), marchSize);
                 float absorptionFromMarch = previousOpaqueVisiblity - opaqueVisiblity;
                 
                 for(int lightIndex = 0; lightIndex < NUM_LIGHTS; lightIndex++)

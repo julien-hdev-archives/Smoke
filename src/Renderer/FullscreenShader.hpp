@@ -4,7 +4,10 @@
 
 class FullscreenShader {
 public:
-	FullscreenShader(const std::string& fragmentShaderSourceCode);
+	FullscreenShader();
+	~FullscreenShader() = default;
+
+	void compile(const std::string& fragmentShaderSourceCode);
 	void draw();
 
 	inline const QOpenGLShaderProgram& get() const { return _shaderProgram; }
