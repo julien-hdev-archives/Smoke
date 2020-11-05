@@ -25,7 +25,6 @@ void SdfRenderer::render(const Camera& camera) {
 	_shader.get().setUniformValue("u_FocalLength", camera.focalLength());
 	// Rendering params
 	_shader.get().setUniformValue("u_AbsorptionCoefficient", _params.absorptionCoefficient);
-	_shader.get().setUniformValue("u_LightAttenuationFactor", _params.lightAttenuationFactor);
 	_shader.get().setUniformValue("u_AbsorptionCutoff", _params.absorptionCutoff);
 	_shader.get().setUniformValue("u_MarchMultiplier", _params.marchMultiplier);
 	_shader.get().setUniformValue("u_MaxVolumeMarchSteps", _params.maxVolumeMarchSteps);

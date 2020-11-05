@@ -68,12 +68,6 @@ float fbm_4( in vec3 x )
 }
 
 // Taken from https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
-float sdPlane( vec3 p )
-{
-	return p.y;
-}
-
-// Taken from https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
 vec2 opU( vec2 d1, vec2 d2 )
 {
 	return (d1.x<d2.x) ? d1 : d2;
@@ -104,6 +98,5 @@ float SDF(vec3 pos)
     float sdfValue = sdSphere(pos, vec3(-8.0, 2.0 + 20.0 * sin(iTime), -1), 5.6);
     sdfValue = sdSmoothUnion(sdfValue,sdSphere(pos, vec3(8.0, 8.0 + 12.0 * cos(iTime), 3), 5.6), 3.0f);
     sdfValue = sdSmoothUnion(sdfValue, sdSphere(pos, vec3(5.0 * sin(iTime), 3.0, 0), 8.0), 3.0) + 7.0 * fbm_4(fbmCoord / 3.2);
-    sdfValue = sdSmoothUnion(sdfValue, sdPlane(pos + vec3(0, 0.4, 0)), 22.0);
     return sdfValue;
 }
