@@ -6,7 +6,9 @@ CameraState_Translation::CameraState_Translation(Camera& camera)
 	: CameraState(camera),
 	  m_initialLookAt(camera.m_lookAt),
 	  m_initialMousePos(QCursor::pos())
-{}
+{
+	qDebug("Translation");
+}
 
 void CameraState_Translation::update() {
 	QPoint delta = (m_initialMousePos - QCursor::pos()) * 0.0001f;

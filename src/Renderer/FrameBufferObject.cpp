@@ -9,6 +9,7 @@
 #include <QtQuick/QQuickWindow>
 
 class FrameBufferObjectRenderer : public QQuickFramebufferObject::Renderer {
+    friend class FrameBufferObject;
     public:
         FrameBufferObjectRenderer() {
             _scene.CreateTriangle2D(); //TODO : Move creation to another class
@@ -42,5 +43,17 @@ FrameBufferObject::FrameBufferObject(QQuickItem* parent)
 {}
 
 QQuickFramebufferObject::Renderer* FrameBufferObject::createRenderer() const {
-    return new FrameBufferObjectRenderer();
+    auto* p = new FrameBufferObjectRenderer();
+    _scene = &p->_scene;
+    return p;
+}
+
+void FrameBufferObject::onMousePress() {
+    _scene->onMousePress();
+}
+void FrameBufferObject::onMouseRelease() {
+    _scene->onMouseRelease();
+}
+void FrameBufferObject::onWheelScroll(float delta) {
+    _scene->onWheelScroll(delta);
 }

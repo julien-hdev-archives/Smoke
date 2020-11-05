@@ -6,13 +6,18 @@ uniform float u_AbsorptionCoefficient;
 uniform float u_LightAttenuationFactor;
 uniform float u_AbsorptionCutoff;
 uniform float u_MarchMultiplier;
-uniform int u_MaxVolumeMarchSteps;
-uniform int u_MaxVolumeLightMarchSteps;
-uniform int u_MaxSdfSphereSteps;
-uniform int u_MaxOpaqueShadowMarchSteps;
+uniform int   u_MaxVolumeMarchSteps;
+uniform int   u_MaxVolumeLightMarchSteps;
+uniform int   u_MaxSdfSphereSteps;
+uniform int   u_MaxOpaqueShadowMarchSteps;
 
 varying vec2 vUV;
 uniform float u_AspectRatio;
+uniform vec3 u_CamX;
+uniform vec3 u_CamY;
+uniform vec3 u_CamZ;
+uniform vec3 u_CamPos;
+uniform float u_FocalLength;
 
 // Adapted from Christopher Wallis' great article https://wallisc.github.io/rendering/2020/05/02/Volumetric-Rendering-Part-2.html
 #define PI 3.141592654
@@ -29,28 +34,12 @@ uniform float u_AspectRatio;
 #define EPSILON 0.0001
 #define CAST_VOLUME_SHADOW_ON_OPAQUES 1
 
-struct CameraDescription
-{
-    vec3 Position;
-    vec3 LookAt;    
-
-    float LensHeight;
-    float FocalDistance;
-};
-    
 struct OrbLightDescription
 {
     vec3 Position;
     float Radius;
     vec3 LightColor;
 };
-    
-CameraDescription Camera = CameraDescription(
-    vec3(0, 70, -165),
-    vec3(0, 5, 0),
-    2.0,
-    7.0
-);
 
 vec3 GetLightColor(int lightIndex)
 {
@@ -413,37 +402,13 @@ vec3 GammaCorrect(vec3 color)
 
 void main()
 {
-    vec2 uv = vUV;
+    vec3 ro = u_CamPos;
+    vec3 rd = normalize(
+          u_CamX * (vUV.x - 0.5) * u_AspectRatio
+        + u_CamY * (vUV.y - 0.5)
+        - u_CamZ * u_FocalLength
+    );
     
-    float lensWidth = Camera.LensHeight * u_AspectRatio;
-    
-    vec3 CameraPosition = Camera.Position;
-    
-    vec3 NonNormalizedCameraView = Camera.LookAt - CameraPosition;
-    float ViewLength = length(NonNormalizedCameraView);
-    vec3 CameraView = NonNormalizedCameraView / ViewLength;
-
-    vec3 lensPoint = CameraPosition;
-    
-    // Pivot the camera around the look at point
-    {
-        mat3 viewMatrix = GetViewMatrix(0.);
-        CameraView = CameraView * viewMatrix;
-        lensPoint = Camera.LookAt - CameraView * ViewLength;
-    }
-    
-    // Technically this could be calculated offline but I like 
-    // being able to iterate quickly
-    vec3 CameraRight = cross(CameraView, vec3(0, 1, 0));    
-    vec3 CameraUp = cross(CameraRight, CameraView);
-
-    vec3 focalPoint = lensPoint - Camera.FocalDistance * CameraView;
-    lensPoint += CameraRight * (uv.x * 2.0 - 1.0) * lensWidth / 2.0;
-    lensPoint += CameraUp * (uv.y * 2.0 - 1.0) * Camera.LensHeight / 2.0;
-    
-    vec3 rayOrigin = focalPoint;
-    vec3 rayDirection = normalize(lensPoint - focalPoint);
-    
-    vec3 color = Render(rayOrigin, rayDirection);
+    vec3 color = Render(ro, rd);
     gl_FragColor = vec4( GammaCorrect(clamp(color, 0.0, 1.0)), 1.0 );
 }

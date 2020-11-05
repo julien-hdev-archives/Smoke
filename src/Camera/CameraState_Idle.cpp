@@ -7,7 +7,9 @@
 
 CameraState_Idle::CameraState_Idle(Camera& camera)
 	: CameraState(camera)
-{}
+{
+	qDebug("Idle");
+}
 
 void CameraState_Idle::onWheelDown() {
 	if (QGuiApplication::keyboardModifiers().testFlag(Qt::ShiftModifier)){
@@ -19,6 +21,6 @@ void CameraState_Idle::onWheelDown() {
 }
 
 void CameraState_Idle::onWheelScroll(float dl){
-	m_camera.m_distToLookAt = std::max(m_camera.m_distToLookAt - dl, 0.00001f);
+	m_camera.m_distToLookAt = std::max(m_camera.m_distToLookAt - dl*3.f, 0.00001f);
 	m_camera.onTransformChanged();
 }

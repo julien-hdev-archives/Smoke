@@ -3,6 +3,8 @@
 #include <string>
 #include "FullscreenShader.hpp"
 
+class Camera;
+
 struct SdfRenderer_Params {
 	float absorptionCoefficient = 0.5f;
 	float lightAttenuationFactor = 2.0f;
@@ -21,7 +23,7 @@ public:
 
 	// Creates and compiles a shader that will render the scene. Takes some glsl source code implementing a "float SDF(vec3 p)" function
 	void setScene(const std::string& sceneSrc);
-	void render();
+	void render(const Camera& camera);
 
 private:
 	SdfRenderer_Params _params;

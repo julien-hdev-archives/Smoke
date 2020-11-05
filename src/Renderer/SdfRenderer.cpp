@@ -2,6 +2,7 @@
 
 #include "Utility/Time.hpp"
 #include "Utility/File.hpp"
+#include "Camera/Camera.hpp"
 
 SdfRenderer::SdfRenderer(SdfRenderer_Params params)
 	: _params(params),
@@ -12,10 +13,17 @@ void SdfRenderer::setScene(const std::string& sceneSrc) {
 	_shader.compile("#version 330\n" + sceneSrc + _rendererSrc);
 }
 
-void SdfRenderer::render() {
+void SdfRenderer::render(const Camera& camera) {
 	_shader.get().bind();
 	_shader.get().setUniformValue("iTime", Time::Elapsed() / 1000.f); // TODO it is more the responsibility of the scene than the renderer to know whether this kind of uniform is required
+	// Camera settings
 	_shader.get().setUniformValue("u_AspectRatio", 1.0f); // TODO set me properly
+	_shader.get().setUniformValue("u_CamX", camera.xAxis());
+	_shader.get().setUniformValue("u_CamY", camera.yAxis());
+	_shader.get().setUniformValue("u_CamZ", camera.zAxis());
+	_shader.get().setUniformValue("u_CamPos", camera.position());
+	_shader.get().setUniformValue("u_FocalLength", camera.focalLength());
+	// Rendering params
 	_shader.get().setUniformValue("u_AbsorptionCoefficient", _params.absorptionCoefficient);
 	_shader.get().setUniformValue("u_LightAttenuationFactor", _params.lightAttenuationFactor);
 	_shader.get().setUniformValue("u_AbsorptionCutoff", _params.absorptionCutoff);
@@ -24,5 +32,6 @@ void SdfRenderer::render() {
 	_shader.get().setUniformValue("u_MaxVolumeLightMarchSteps", _params.maxVolumeLightMarchSteps);
 	_shader.get().setUniformValue("u_MaxSdfSphereSteps", _params.maxSdfSphereSteps);
 	_shader.get().setUniformValue("u_MaxOpaqueShadowMarchSteps", _params.maxOpaqueShadowMarchSteps);
+	//
 	_shader.draw();
 }

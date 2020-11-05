@@ -18,6 +18,12 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredHeight: 380
+            MouseArea {
+                anchors.fill: parent
+                onPressed: fbo.onMousePress()
+                onReleased: fbo.onMouseRelease()
+                onWheel: fbo.onWheelScroll(wheel.angleDelta.y / 120)
+            }
         }
 
         Rectangle {

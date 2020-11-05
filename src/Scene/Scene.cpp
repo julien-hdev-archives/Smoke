@@ -32,10 +32,24 @@
 
 	void Scene::OnRender()
     {
+		// Update
+		_camera.update();
+		// Render
         QOpenGLFunctions* functions = QOpenGLContext::currentContext()->functions();
         functions->glClearColor(0.f, 0.f, 0.f, 1.f);
         functions->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
         
-        _sdfRenderer.render();
+        _sdfRenderer.render(_camera);
 	}
 
+	void Scene::onMousePress() {
+		_camera.onWheelDown();
+	}
+
+	void Scene::onMouseRelease() {
+		_camera.onWheelUp();
+	}
+
+	void Scene::onWheelScroll(float delta) {
+		_camera.onWheelScroll(delta);
+	}
