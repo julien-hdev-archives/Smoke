@@ -35,9 +35,9 @@ private:
 
 private:
 	QVector3D m_lookAt = QVector3D(0.f, 0.f, 0.f);
-	float m_distToLookAt = 3.0f;
+	float m_distToLookAt = 48.0f;
 	float m_angleGround = 0.0f;
-	float m_angleUp = 0.0f;
+	float m_angleUp = 0.29f;
 
 	QMatrix4x4 m_transformMatrix;
 	QMatrix4x4 m_viewMatrix;
