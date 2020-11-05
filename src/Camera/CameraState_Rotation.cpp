@@ -7,9 +7,7 @@ CameraState_Rotation::CameraState_Rotation(Camera& camera)
 	  m_initialAngleGround(camera.m_angleGround),
 	  m_initialAngleUp    (camera.m_angleUp),
 	  m_initialMousePos(QCursor::pos())
-{
-	qDebug("Rotation");
-}
+{}
 
 void CameraState_Rotation::update() {
 	QPoint delta = QCursor::pos() - m_initialMousePos;

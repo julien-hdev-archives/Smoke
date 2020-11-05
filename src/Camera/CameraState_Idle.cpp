@@ -7,9 +7,7 @@
 
 CameraState_Idle::CameraState_Idle(Camera& camera)
 	: CameraState(camera)
-{
-	qDebug("Idle");
-}
+{}
 
 void CameraState_Idle::onWheelDown() {
 	if (QGuiApplication::keyboardModifiers().testFlag(Qt::ShiftModifier)){
