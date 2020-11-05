@@ -30,11 +30,13 @@
 		return triangle2D;
 	}
 
-	void Scene::OnRender()
-    {
-		// Update
+	void Scene::onUpdate()
+	{
 		_camera.update();
-		// Render
+	}
+
+	void Scene::onRender()
+    {
         QOpenGLFunctions* functions = QOpenGLContext::currentContext()->functions();
         functions->glClearColor(0.f, 0.f, 0.f, 1.f);
         functions->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);

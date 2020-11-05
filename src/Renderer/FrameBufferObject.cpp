@@ -21,7 +21,8 @@ class FrameBufferObjectRenderer : public QQuickFramebufferObject::Renderer {
         }
 
         void render() override {
-            _scene.OnRender();
+            _scene.onUpdate();
+            _scene.onRender();
             update();
             _window->resetOpenGLState();
         }
