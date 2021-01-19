@@ -25,13 +25,13 @@ App::App(int &argc, char **argv)
 void App::setupOpenGLContext() const {
     QSurfaceFormat format;
 
-    format.setMajorVersion(3);
+    format.setMajorVersion(4);
     format.setMinorVersion(3);
     format.setProfile(QSurfaceFormat::CoreProfile);
     format.setDepthBufferSize(24);
     format.setStencilBufferSize(8);
-    format.setSamples(4);
-    format.setSwapInterval(0);
+    format.setSamples(1);
+    format.setSwapInterval(1);
 
     QSurfaceFormat::setDefaultFormat(format);
 }
