@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 
+#include <chrono>
 #include <time.h>
 
 
@@ -199,15 +200,21 @@ naive_approach(std::array<std::array<glm::vec3, TOTAL_SIZE>, TOTAL_SIZE> & grid,
 
 struct Timer
 {
-    std::vector<time_t> dates;
+    std::vector<std::chrono::time_point<
+                    std::chrono::high_resolution_clock,
+                    std::chrono::nanoseconds
+                    >> dates;
     Timer()
     {
         log();
     }
     void log()
     {
-        time_t t;
-        time(&t);
+        std::chrono::time_point<
+                    std::chrono::high_resolution_clock,
+                    std::chrono::nanoseconds
+                    >
+            t = std::chrono::high_resolution_clock::now();
         dates.push_back(t);
     }
 
@@ -216,8 +223,8 @@ struct Timer
     {
         for (int i = 1; i < dates.size(); ++i)
         {
-            double delta = difftime(dates[i], dates[i-1]);
-            std::cout << "Measure n°" << i << " :  " << delta << std::endl;
+            float delta = std::chrono::duration_cast<std::chrono::milliseconds>(dates[i] - dates[i-1]).count();
+            std::cout << "Measure n°" << i << " :  " << delta << " ms"<< std::endl;
         }
     }
     
