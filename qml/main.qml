@@ -13,7 +13,7 @@ ApplicationWindow {
     ColumnLayout {
         anchors.fill: parent
 
-        FrameBufferObject {
+        MyQuickFBO {
             id: fbo
             Layout.fillWidth: true
             Layout.fillHeight: true
@@ -23,6 +23,7 @@ ApplicationWindow {
                 onPressed: fbo.onMousePress()
                 onReleased: fbo.onMouseRelease()
                 onWheel: fbo.onWheelScroll(wheel.angleDelta.y / 120)
+                onPositionChanged: if (pressed) fbo.update()
             }
         }
 

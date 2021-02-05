@@ -11,6 +11,7 @@ friend class CameraState_Translation;
 public:
 	Camera();
 	~Camera() = default;
+	Camera& operator= (const Camera&);
 
 	inline const QMatrix4x4& transformMatrix() const { return m_transformMatrix; }
 	inline const QMatrix4x4& viewMatrix() const { return m_viewMatrix; }

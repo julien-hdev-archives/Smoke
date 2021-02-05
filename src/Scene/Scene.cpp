@@ -9,11 +9,8 @@
 
 #include "Renderer/Renderer.hpp"
 
-#include "Utility/File.hpp"
-
 	Scene::Scene()
 	{
-		_sdfRenderer.setScene(MyFile::LoadToString("shaders/simulation/SDF_Test1.fs.glsl"));
 	}
  
 	Entity Scene::CreateEntity(const std::string& name, const TransformComp& transform)
@@ -33,15 +30,6 @@
 	void Scene::onUpdate()
 	{
 		_camera.update();
-	}
-
-	void Scene::onRender()
-    {
-        QOpenGLFunctions* functions = QOpenGLContext::currentContext()->functions();
-        functions->glClearColor(0.f, 0.f, 0.f, 1.f);
-        functions->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-        
-        _sdfRenderer.render(_camera);
 	}
 
 	void Scene::onMousePress() {

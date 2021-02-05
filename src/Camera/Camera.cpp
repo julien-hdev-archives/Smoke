@@ -8,6 +8,19 @@ Camera::Camera() {
 	onTransformChanged();
 }
 
+
+Camera& Camera::operator= (const Camera& o)
+{
+	m_lookAt = o.m_lookAt;
+	m_distToLookAt = o.m_distToLookAt;
+	m_angleGround = o.m_angleGround;
+	m_angleUp = o.m_angleUp;
+	m_focalLength = o.m_focalLength;
+	setState<CameraState_Idle>();
+	onTransformChanged();
+	return *this;
+}
+
 void Camera::onTransformChanged() {
 	QVector3D posRelToLookAt = QVector3D(
 		cos(m_angleUp) * cos(m_angleGround),

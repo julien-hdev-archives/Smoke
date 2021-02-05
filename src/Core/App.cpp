@@ -1,5 +1,5 @@
 #include "Core/App.hpp"
-#include "Renderer/FrameBufferObject.hpp"
+#include "Renderer/MyQuickFBO.hpp"
 #include "Core/MessageHandler.hpp"
 
 #include <QtGlobal>
@@ -14,7 +14,7 @@ App::App(int &argc, char **argv)
     Time::Initialize();
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    qmlRegisterType<FrameBufferObject>("SceneGraphRendering", 1, 0, "FrameBufferObject");
+    qmlRegisterType<MyQuickFBO>("SceneGraphRendering", 1, 0, "MyQuickFBO");
 
     qInstallMessageHandler(MessageHandler::handler);
 
