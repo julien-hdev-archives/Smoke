@@ -3,7 +3,7 @@
 #include <string>
 #include "FullscreenShader.hpp"
 
-class Camera;
+struct CameraInfos;
 struct SdfRenderer_Params;
 
 class SdfRenderer {
@@ -13,7 +13,7 @@ public:
 
 	// Creates and compiles a shader that will render the scene. Takes some glsl source code implementing a "float SDF(vec3 p)" function
 	void setScene(const std::string& sceneSrc);
-	void render(const Camera& camera, const SdfRenderer_Params& params);
+	void render(const CameraInfos& cameraInfos, const SdfRenderer_Params& params);
 
 private:
 	FullscreenShader _shader;

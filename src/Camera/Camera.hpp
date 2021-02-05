@@ -3,6 +3,7 @@
 #include "CameraState.hpp"
 #include <QMatrix4x4>
 #include <QVector3D>
+#include "CameraInfos.hpp"
 
 class Camera {
 friend class CameraState_Idle;
@@ -11,7 +12,6 @@ friend class CameraState_Translation;
 public:
 	Camera();
 	~Camera() = default;
-	Camera& operator= (const Camera&);
 
 	inline const QMatrix4x4& transformMatrix() const { return m_transformMatrix; }
 	inline const QMatrix4x4& viewMatrix() const { return m_viewMatrix; }
@@ -20,6 +20,7 @@ public:
 	QVector3D zAxis() const;
 	QVector3D position() const;
 	inline float focalLength() const { return m_focalLength; }
+	CameraInfos getInfos() const;
 
 	inline void update() { m_state->update(); }
 	inline void onWheelDown() { m_state->onWheelDown(); }

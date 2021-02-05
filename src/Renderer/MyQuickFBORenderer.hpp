@@ -18,9 +18,8 @@ public:
         MyQuickFBO* quickFBO = static_cast<MyQuickFBO*>(item);
         _window = item->window();
         quickFBO->camera().update();
-        _camera = quickFBO->camera();
+        _cameraInfos = quickFBO->camera().getInfos();
         _sdfRendererParams = quickFBO->sdfRenderer_Params();
-        qInfo("Synchro !");
     }
 
     void render() override {
@@ -28,7 +27,7 @@ public:
         functions->glClearColor(1.f, 0.f, 0.f, 1.f);
         functions->glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-        _sdfRenderer.render(_camera, _sdfRendererParams);
+        _sdfRenderer.render(_cameraInfos, _sdfRendererParams);
         update();
         _window->resetOpenGLState();
     }
@@ -41,7 +40,7 @@ public:
 
 private:
     SdfRenderer _sdfRenderer;
-    Camera _camera;
+    CameraInfos _cameraInfos;
     SdfRenderer_Params _sdfRendererParams;
     QQuickWindow* _window;
 };
