@@ -13,7 +13,6 @@ App::App(int &argc, char **argv)
 {
     Time::Initialize();
 
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     qmlRegisterType<MyQuickFBO>("SceneGraphRendering", 1, 0, "MyQuickFBO");
 
     qInstallMessageHandler(MessageHandler::handler);

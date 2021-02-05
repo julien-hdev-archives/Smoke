@@ -1,10 +1,9 @@
 #include "Core/App.hpp"
-#include "Core/Base.hpp"
 
 int main(int argc, char *argv[])
 {
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     App application(argc, argv);
 
-    //SK_ASSERT(false, "Test Assert");
     return application.exec();
 }
