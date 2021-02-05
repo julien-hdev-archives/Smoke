@@ -9,7 +9,7 @@ class QOpenGLFramebufferObject;
 class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer {
 
 public:
-    MyQuickFBORenderer() = default;
+    MyQuickFBORenderer(QQuickWindow& window);
     ~MyQuickFBORenderer() = default;
 
     void synchronize(QQuickFramebufferObject* item) override;
@@ -20,5 +20,5 @@ private:
     SdfRenderer _sdfRenderer;
     SdfRenderer_Params _sdfRendererParams;
     CameraInfos _cameraInfos;
-    QQuickWindow* _window;
+    QQuickWindow& _window;
 };

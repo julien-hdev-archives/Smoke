@@ -5,12 +5,16 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QtGui/QOpenGLFramebufferObject>
 
+MyQuickFBORenderer::MyQuickFBORenderer(QQuickWindow& window)
+    : _window(window)
+{}
+
 void MyQuickFBORenderer::synchronize(QQuickFramebufferObject* item) {
     MyQuickFBO* quickFBO = reinterpret_cast<MyQuickFBO*>(item);
-    _window = item->window();
+
+    _sdfRendererParams = quickFBO->sdfRenderer_Params();
     quickFBO->camera().update();
     _cameraInfos = quickFBO->camera().getInfos();
-    _sdfRendererParams = quickFBO->sdfRenderer_Params();
 }
 
 void MyQuickFBORenderer::render() {
@@ -20,7 +24,7 @@ void MyQuickFBORenderer::render() {
 
     _sdfRenderer.render(_cameraInfos, _sdfRendererParams);
     update();
-    _window->resetOpenGLState();
+    _window.resetOpenGLState();
 }
 
 QOpenGLFramebufferObject* MyQuickFBORenderer::createFramebufferObject(const QSize& size) {

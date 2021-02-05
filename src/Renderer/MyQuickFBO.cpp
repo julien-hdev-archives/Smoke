@@ -8,7 +8,7 @@ MyQuickFBO::MyQuickFBO(QQuickItem* parent)
 {}
 
 QQuickFramebufferObject::Renderer* MyQuickFBO::createRenderer() const {
-    return new MyQuickFBORenderer();
+    return new MyQuickFBORenderer(*window());
 }
 
 void MyQuickFBO::onMousePress() {
