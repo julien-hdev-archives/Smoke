@@ -6,7 +6,7 @@
 #include <QtGui/QOpenGLFramebufferObject>
 
 void MyQuickFBORenderer::synchronize(QQuickFramebufferObject* item) {
-    MyQuickFBO* quickFBO = static_cast<MyQuickFBO*>(item);
+    MyQuickFBO* quickFBO = reinterpret_cast<MyQuickFBO*>(item);
     _window = item->window();
     quickFBO->camera().update();
     _cameraInfos = quickFBO->camera().getInfos();
