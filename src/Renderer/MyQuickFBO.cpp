@@ -13,11 +13,9 @@ QQuickFramebufferObject::Renderer* MyQuickFBO::createRenderer() const {
 
 void MyQuickFBO::onMousePress() {
     _camera.onWheelDown();
-    update();
 }
 void MyQuickFBO::onMouseRelease() {
     _camera.onWheelUp();
-    update();
 }
 void MyQuickFBO::onWheelScroll(float delta) {
     _camera.onWheelScroll(delta);
