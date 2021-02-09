@@ -10,13 +10,15 @@ uniform int   u_MaxVolumeLightMarchSteps;
 uniform int   u_MaxSdfSphereSteps;
 uniform int   u_MaxOpaqueShadowMarchSteps;
 
-varying vec2 vUV;
+in vec2 vUV;
 uniform float u_AspectRatio;
 uniform vec3 u_CamX;
 uniform vec3 u_CamY;
 uniform vec3 u_CamZ;
 uniform vec3 u_CamPos;
 uniform float u_FocalLength;
+
+out vec4 fragColor;
 
 //? uniform float iTime;
 
@@ -204,5 +206,5 @@ void main()
     );
     
     vec3 color = Render(ro, rd);
-    gl_FragColor = vec4(GammaCorrect(color), 1.);
+    fragColor = vec4(GammaCorrect(color), 1.);
 }
