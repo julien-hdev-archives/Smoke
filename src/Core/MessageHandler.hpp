@@ -1,16 +1,17 @@
 #pragma once
 
-#include <QtGlobal>
-#include <QString>
 #include <QMessageLogContext>
+#include <QString>
+#include <QtGlobal>
 
 #include <iostream>
 
-class MessageHandler {
-    public:
-        static void handler(QtMsgType type, const QMessageLogContext& context, const QString& msg);
+class MessageHandler
+{
+  public:
+    static void handler (QtMsgType type, const QMessageLogContext &context,
+                         const QString &msg);
 
-    private:
-        static const std::string logLevel(QtMsgType type);
+  private:
+    static const std::string logLevel (QtMsgType type);
 };
-

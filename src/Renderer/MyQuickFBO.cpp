@@ -3,21 +3,28 @@
 #include "MyQuickFBO.hpp"
 #include "MyQuickFBORenderer.hpp"
 
-MyQuickFBO::MyQuickFBO(QQuickItem* parent)
-    : QQuickFramebufferObject(parent)
+MyQuickFBO::MyQuickFBO (QQuickItem *parent) : QQuickFramebufferObject (parent)
 {}
 
-QQuickFramebufferObject::Renderer* MyQuickFBO::createRenderer() const {
-    return new MyQuickFBORenderer(*window());
+QQuickFramebufferObject::Renderer *
+MyQuickFBO::createRenderer () const
+{
+    return new MyQuickFBORenderer (*window ());
 }
 
-void MyQuickFBO::onMousePress() {
-    _camera.onWheelDown();
+void
+MyQuickFBO::onMousePress ()
+{
+    _camera.onWheelDown ();
 }
-void MyQuickFBO::onMouseRelease() {
-    _camera.onWheelUp();
+void
+MyQuickFBO::onMouseRelease ()
+{
+    _camera.onWheelUp ();
 }
-void MyQuickFBO::onWheelScroll(float delta) {
-    _camera.onWheelScroll(delta);
-    update();
+void
+MyQuickFBO::onWheelScroll (float delta)
+{
+    _camera.onWheelScroll (delta);
+    update ();
 }
