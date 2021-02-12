@@ -1,14 +1,13 @@
 #include "ObjectListModel.hpp"
 
 int
-ObjectListModel::rowCount(const QModelIndex &parent = QModelIndex()) const
+ObjectListModel::rowCount(const QModelIndex &parent) const
 {
     return _data.size();
 }
 
 QVariant
-ObjectListModel::data(const QModelIndex &index,
-                      int role = Qt::DisplayRole) const
+ObjectListModel::data(const QModelIndex &index, int role) const
 {
     if (!hasIndex(index.row(), index.column(), index.parent())) return {};
 
