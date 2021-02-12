@@ -3,13 +3,13 @@
 QElapsedTimer Time::s_timer;
 
 void
-Time::Initialize ()
+Time::Initialize()
 {
-    s_timer.start ();
+    s_timer.start();
 }
 
 int
-Time::Elapsed ()
+Time::Elapsed()
 {
-    return s_timer.elapsed ();
+    return s_timer.elapsed();
 }

@@ -5,14 +5,23 @@
 class FullscreenShader
 {
   public:
-    FullscreenShader ();
-    ~FullscreenShader () = default;
+    FullscreenShader();
+    ~FullscreenShader() = default;
 
-    void compile (const std::string &fragmentShaderSourceCode);
-    void draw ();
+    void compile(const std::string &fragmentShaderSourceCode);
+    void draw();
 
-    inline const QOpenGLShaderProgram &get () const { return _shaderProgram; }
-    inline QOpenGLShaderProgram &get () { return _shaderProgram; }
+    inline const QOpenGLShaderProgram &
+    get() const
+    {
+        return _shaderProgram;
+    }
+
+    inline QOpenGLShaderProgram &
+    get()
+    {
+        return _shaderProgram;
+    }
 
   private:
     QOpenGLShaderProgram _shaderProgram;

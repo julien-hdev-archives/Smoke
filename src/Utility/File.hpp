@@ -4,5 +4,5 @@
 
 namespace MyFile
 {
-std::string LoadToString (const std::string &filepath);
+std::string LoadToString(const std::string &filepath);
 }

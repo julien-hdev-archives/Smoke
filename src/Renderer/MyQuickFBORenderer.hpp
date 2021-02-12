@@ -10,13 +10,13 @@ class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer
 {
 
   public:
-    MyQuickFBORenderer (QQuickWindow &window);
-    ~MyQuickFBORenderer () = default;
+    MyQuickFBORenderer(QQuickWindow &window);
+    ~MyQuickFBORenderer() = default;
 
-    void synchronize (QQuickFramebufferObject *item) override;
-    void render () override;
+    void synchronize(QQuickFramebufferObject *item) override;
+    void render() override;
     QOpenGLFramebufferObject *
-    createFramebufferObject (const QSize &size) override;
+    createFramebufferObject(const QSize &size) override;
 
   private:
     SdfRenderer _sdfRenderer;

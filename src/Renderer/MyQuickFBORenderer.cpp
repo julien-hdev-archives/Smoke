@@ -5,35 +5,34 @@
 #include <QtGui/QOpenGLFunctions>
 #include <QtQuick/QQuickWindow>
 
-MyQuickFBORenderer::MyQuickFBORenderer (QQuickWindow &window)
-    : _window (window)
+MyQuickFBORenderer::MyQuickFBORenderer(QQuickWindow &window) : _window(window)
 {}
 
 void
-MyQuickFBORenderer::synchronize (QQuickFramebufferObject *item)
+MyQuickFBORenderer::synchronize(QQuickFramebufferObject *item)
 {
-    MyQuickFBO *quickFBO = reinterpret_cast<MyQuickFBO *> (item);
+    MyQuickFBO *quickFBO = reinterpret_cast<MyQuickFBO *>(item);
 
-    _sdfRendererParams = quickFBO->sdfRenderer_Params ();
-    quickFBO->camera ().update ();
-    _cameraInfos = quickFBO->camera ().getInfos ();
+    _sdfRendererParams = quickFBO->sdfRenderer_Params();
+    quickFBO->camera().update();
+    _cameraInfos = quickFBO->camera().getInfos();
 }
 
 void
-MyQuickFBORenderer::render ()
+MyQuickFBORenderer::render()
 {
     QOpenGLFunctions *functions
-        = QOpenGLContext::currentContext ()->functions ();
-    functions->glDisable (GL_DEPTH_TEST);
+        = QOpenGLContext::currentContext()->functions();
+    functions->glDisable(GL_DEPTH_TEST);
 
-    _sdfRenderer.render (_cameraInfos, _sdfRendererParams);
-    update ();
-    _window.resetOpenGLState ();
+    _sdfRenderer.render(_cameraInfos, _sdfRendererParams);
+    update();
+    _window.resetOpenGLState();
 }
 
 QOpenGLFramebufferObject *
-MyQuickFBORenderer::createFramebufferObject (const QSize &size)
+MyQuickFBORenderer::createFramebufferObject(const QSize &size)
 {
     QOpenGLFramebufferObjectFormat format;
-    return new QOpenGLFramebufferObject (size, format);
+    return new QOpenGLFramebufferObject(size, format);
 }

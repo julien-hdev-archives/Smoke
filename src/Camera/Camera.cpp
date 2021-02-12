@@ -3,48 +3,48 @@
 
 #include "Utility/Math.hpp"
 
-Camera::Camera ()
+Camera::Camera()
 {
-    setState<CameraState_Idle> ();
-    onTransformChanged ();
+    setState<CameraState_Idle>();
+    onTransformChanged();
 }
 
 void
-Camera::onTransformChanged ()
+Camera::onTransformChanged()
 {
     QVector3D posRelToLookAt
-        = QVector3D (cos (m_angleUp) * cos (m_angleGround), sin (m_angleUp),
-                     cos (m_angleUp) * sin (m_angleGround))
+        = QVector3D(cos(m_angleUp) * cos(m_angleGround), sin(m_angleUp),
+                    cos(m_angleUp) * sin(m_angleGround))
           * m_distToLookAt;
-    m_viewMatrix.setToIdentity ();
-    m_viewMatrix.lookAt (posRelToLookAt + m_lookAt, m_lookAt,
-                         QVector3D (0.0f, Math::sign (cos (m_angleUp)), 0.0f));
-    m_transformMatrix = m_viewMatrix.inverted ();
+    m_viewMatrix.setToIdentity();
+    m_viewMatrix.lookAt(posRelToLookAt + m_lookAt, m_lookAt,
+                        QVector3D(0.0f, Math::sign(cos(m_angleUp)), 0.0f));
+    m_transformMatrix = m_viewMatrix.inverted();
 }
 
 QVector3D
-Camera::xAxis () const
+Camera::xAxis() const
 {
-    return m_transformMatrix.column (0).toVector3D ().normalized ();
+    return m_transformMatrix.column(0).toVector3D().normalized();
 }
 QVector3D
-Camera::yAxis () const
+Camera::yAxis() const
 {
-    return m_transformMatrix.column (1).toVector3D ().normalized ();
+    return m_transformMatrix.column(1).toVector3D().normalized();
 }
 QVector3D
-Camera::zAxis () const
+Camera::zAxis() const
 {
-    return m_transformMatrix.column (2).toVector3D ().normalized ();
+    return m_transformMatrix.column(2).toVector3D().normalized();
 }
 QVector3D
-Camera::position () const
+Camera::position() const
 {
-    return m_transformMatrix.column (3).toVector3D ();
+    return m_transformMatrix.column(3).toVector3D();
 }
 
 CameraInfos
-Camera::getInfos () const
+Camera::getInfos() const
 {
-    return { xAxis (), yAxis (), zAxis (), position (), focalLength () };
+    return { xAxis(), yAxis(), zAxis(), position(), focalLength() };
 }

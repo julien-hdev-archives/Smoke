@@ -6,12 +6,12 @@
 class App : public QGuiApplication
 {
   public:
-    App (int &argc, char **argv);
-    ~App () = default;
+    App(int &argc, char **argv);
+    ~App() = default;
 
   private:
-    void setupOpenGLContext () const;
-    void setupEngine ();
+    void setupOpenGLContext() const;
+    void setupEngine();
 
   private:
     QQmlApplicationEngine _engine;

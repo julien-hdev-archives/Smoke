@@ -4,8 +4,6 @@ IndentWidth: 4
 
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: true
-AlwaysBreakAfterDefinitionReturnType : None
-AlwaysBreakAfterReturnType: TopLevelDefinitions
 
 BreakBeforeBraces: Custom
 BraceWrapping:
@@ -23,3 +21,5 @@ BraceWrapping:
     SplitEmptyFunction : false
     SplitEmptyRecord : false
     SplitEmptyNamespace : true
+
+SpaceBeforeParens : ControlStatements

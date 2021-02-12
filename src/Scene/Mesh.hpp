@@ -7,10 +7,10 @@
 class Mesh : public Entity
 {
   public:
-    Mesh () = default;
+    Mesh() = default;
 
-    Mesh (entt::entity handle, Scene *scene,
-          const std::string &name = std::string (),
-          const TransformComp &transform = TransformComp (),
-          const MeshComp &mesh = MeshComp ());
+    Mesh(entt::entity handle, Scene *scene,
+         const std::string &name = std::string(),
+         const TransformComp &transform = TransformComp(),
+         const MeshComp &mesh = MeshComp());
 };

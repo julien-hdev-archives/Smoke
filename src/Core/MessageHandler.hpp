@@ -9,9 +9,9 @@
 class MessageHandler
 {
   public:
-    static void handler (QtMsgType type, const QMessageLogContext &context,
-                         const QString &msg);
+    static void handler(QtMsgType type, const QMessageLogContext &context,
+                        const QString &msg);
 
   private:
-    static const std::string logLevel (QtMsgType type);
+    static const std::string logLevel(QtMsgType type);
 };
