@@ -15,11 +15,11 @@ class FloatAttribute : public Attribute
     // Constructors & Destructor.
     // ==============================
 
-    explicit FloatAttribute(const QString &name, const float value,
-                            const float from = 0.f, const float to = 1.f,
-                            const float step = 0.01f,
+    explicit FloatAttribute(const QString &name, const QString &label,
+                            const float value, const float from = 0.f,
+                            const float to = 1.f, const float step = 0.01f,
                             QObject *parent = nullptr)
-        : Attribute(attributeType(), name, value, parent), _from(from),
+        : Attribute(attributeType(), name, label, value, parent), _from(from),
           _to(to), _step(step)
     {}
     ~FloatAttribute() = default;
