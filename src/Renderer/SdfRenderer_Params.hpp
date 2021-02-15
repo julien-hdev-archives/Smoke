@@ -1,7 +1,7 @@
 #pragma once
 
+#include "Core/AttributeListModel.hpp"
 #include "Core/FloatAttribute.hpp"
-#include "Utility/ObjectListModel.hpp"
 
 #include <QObject>
 
@@ -19,13 +19,13 @@ struct SdfRenderer_Params
 class SdfRendererProperties : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(ObjectListModel *attributes MEMBER _attributes NOTIFY
+    Q_PROPERTY(AttributeListModel *attributes MEMBER _attributes NOTIFY
                    attributesChanged)
   public:
     SdfRendererProperties(QObject *parent = nullptr) : QObject(parent)
     {
         // Construct the ListModel.
-        _attributes = new ObjectListModel(this);
+        _attributes = new AttributeListModel(this);
 
         // Get the default attribute values.
         SdfRenderer_Params initialParams;
@@ -43,5 +43,5 @@ class SdfRendererProperties : public QObject
     Q_SIGNAL void attributesChanged();
 
   private:
-    ObjectListModel *_attributes;
+    AttributeListModel *_attributes;
 };
