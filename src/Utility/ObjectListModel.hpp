@@ -2,8 +2,8 @@
 
 #include <QAbstractListModel>
 
-/// \brief Static ObjectListModel used for QML Views.
-/// \todo Make it dynamic.
+/// \brief Dynamic ObjectListModel used for QML Views.
+/// \todo Add remove().
 class ObjectListModel : public QAbstractListModel
 {
     Q_OBJECT
@@ -23,7 +23,7 @@ class ObjectListModel : public QAbstractListModel
     QVariant data(const QModelIndex &index,
                   int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
-    QHash<int, QByteArray> roleNames() const;
+    QHash<int, QByteArray> roleNames() const override;
 
     // ==============================
     // Internal methods used to work directly with the data.
@@ -31,10 +31,11 @@ class ObjectListModel : public QAbstractListModel
     // in case of dynamic object lists.
     // ==============================
 
-    /// \brief Clear and populate the data with a list of QObjects.
-    /// \param objects List of QObjects to store as data.
-    /// \todo Check if handling parent ownership is needed or not.
-    void populate(const QObjectList &objects);
+    /// \brief Add the object inside the list, if not already in it.
+    /// \remarks If the object is added to the list, the
+    /// ListModel class takes its ownership.
+    /// \param obj Pointer to the object.
+    void append(QObject *obj);
 
     /// \brief Returns the Object at the corresponding index.
     /// \param index Index in the list.

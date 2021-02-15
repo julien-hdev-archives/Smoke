@@ -36,9 +36,14 @@ ObjectListModel::roleNames() const
 }
 
 void
-ObjectListModel::populate(const QObjectList &objects)
+ObjectListModel::append(QObject *obj)
 {
-    beginResetModel();
-    _data = objects;
-    endResetModel();
+    if (_data.contains(obj)) return;
+
+    // Make sure to take the ownership.
+    obj->setParent(this);
+    // Add the object in the list.
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    _data.append(obj);
+    endInsertRows();
 }

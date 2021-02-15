@@ -24,20 +24,18 @@ class SdfRendererProperties : public QObject
   public:
     SdfRendererProperties(QObject *parent = nullptr) : QObject(parent)
     {
-        SdfRenderer_Params initialParams;
-        QObjectList objList;
-
+        // Construct the ListModel.
         _attributes = new ObjectListModel(this);
+
+        // Get the default attribute values.
+        SdfRenderer_Params initialParams;
 
         // Initialize each attribute.
         // Only one for now, for the test.
         auto absorptionCoefficient = new FloatAttribute(
             "absorptionCoefficient", "Absorption Coefficient",
             initialParams.absorptionCoefficient, 0.f, 1.f, 0.01f, _attributes);
-        objList.append(absorptionCoefficient);
-
-        // Populate the ListModel.
-        _attributes->populate(objList);
+        _attributes->append(absorptionCoefficient);
     }
     ~SdfRendererProperties() = default;
 
