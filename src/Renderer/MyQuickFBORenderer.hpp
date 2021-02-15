@@ -2,8 +2,10 @@
 
 #include "Camera/CameraInfos.hpp"
 #include "SdfRenderer.hpp"
-#include "SdfRenderer_Params.hpp"
+#include "SdfRendererProperties.hpp"
+
 #include <QtQuick/QQuickFramebufferObject>
+
 class QOpenGLFramebufferObject;
 
 class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer

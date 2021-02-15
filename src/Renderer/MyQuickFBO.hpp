@@ -2,7 +2,7 @@
 
 #include "Camera/Camera.hpp"
 #include "Core/FloatAttribute.hpp"
-#include "SdfRenderer_Params.hpp"
+#include "SdfRendererProperties.hpp"
 #include <QtQuick/QQuickFramebufferObject>
 
 class MyQuickFBO : public QQuickFramebufferObject

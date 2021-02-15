@@ -1,7 +1,7 @@
 #include "SdfRenderer.hpp"
 
 #include "Camera/CameraInfos.hpp"
-#include "SdfRenderer_Params.hpp"
+#include "SdfRendererProperties.hpp"
 #include "Utility/File.hpp"
 #include "Utility/Time.hpp"
 
