@@ -19,5 +19,8 @@ class AttributeListModel : public ObjectListModel
     /// \param attr Pointer to the Attribute.
     void append(Attribute *attr);
 
+    /// \brief Find an Attribute by its name.
+    /// \param name Name of the Attribute.
+    /// \returns Attribute or nullptr.
     const Attribute *find(const QString &name) const;
 };
