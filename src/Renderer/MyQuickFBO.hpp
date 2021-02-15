@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Camera/Camera.hpp"
+#include "Core/FloatAttribute.hpp"
 #include "SdfRenderer_Params.hpp"
 #include <QtQuick/QQuickFramebufferObject>
 
 class MyQuickFBO : public QQuickFramebufferObject
 {
     Q_OBJECT
+    Q_PROPERTY(SdfRendererProperties *sdfRendererProperties MEMBER
+                   _sdfRendererProperties NOTIFY sdfRendererPropertiesChanged)
   public:
     explicit MyQuickFBO(QQuickItem *parent = nullptr);
     QQuickFramebufferObject::Renderer *createRenderer() const override;
@@ -27,7 +30,12 @@ class MyQuickFBO : public QQuickFramebufferObject
         return _sdfRendererParams;
     }
 
+  public:
+    Q_SIGNAL void sdfRendererPropertiesChanged();
+
   private:
     Camera _camera;
     SdfRenderer_Params _sdfRendererParams;
+
+    SdfRendererProperties *_sdfRendererProperties;
 };

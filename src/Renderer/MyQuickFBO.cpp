@@ -3,7 +3,10 @@
 #include "MyQuickFBO.hpp"
 #include "MyQuickFBORenderer.hpp"
 
-MyQuickFBO::MyQuickFBO(QQuickItem *parent) : QQuickFramebufferObject(parent) {}
+MyQuickFBO::MyQuickFBO(QQuickItem *parent)
+    : QQuickFramebufferObject(parent),
+      _sdfRendererProperties(new SdfRendererProperties(this))
+{}
 
 QQuickFramebufferObject::Renderer *
 MyQuickFBO::createRenderer() const
