@@ -1,6 +1,21 @@
 #include "AttributeListModel.hpp"
 #include "Attribute.hpp"
 
+AttributeListModel::AttributeListModel(QObject *parent)
+    : ObjectListModel(parent)
+{
+    if (parent)
+    {
+        auto res = connect(this, SIGNAL(valueChanged()), parent,
+                           SIGNAL(valueChanged()));
+        if (!static_cast<bool>(res))
+        {
+            throw new std::exception(
+                "The connection between signals cannot be done.");
+        }
+    }
+}
+
 void
 AttributeListModel::append(QObject *obj)
 {

@@ -3,6 +3,14 @@
 SdfRendererProperties::SdfRendererProperties(QObject *parent)
     : QObject(parent), _attributes(new AttributeListModel(this))
 {
+    // Connection for updates.
+    auto res = connect(this, SIGNAL(valueChanged()), parent, SLOT(update()));
+    if (!static_cast<bool>(res))
+    {
+        throw new std::exception(
+            "The connection between signal and slot cannot be done.");
+    }
+
     // Get the default attribute values.
     SdfRenderer_Params initialParams;
 

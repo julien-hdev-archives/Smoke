@@ -8,9 +8,7 @@ class AttributeListModel : public ObjectListModel
 {
     Q_OBJECT
   public:
-    explicit AttributeListModel(QObject *parent = nullptr)
-        : ObjectListModel(parent)
-    {}
+    explicit AttributeListModel(QObject *parent = nullptr);
     ~AttributeListModel() = default;
 
     void append(QObject *obj) override;
@@ -23,4 +21,7 @@ class AttributeListModel : public ObjectListModel
     /// \param name Name of the Attribute.
     /// \returns Attribute or nullptr.
     const Attribute *find(const QString &name) const;
+
+  public:
+    Q_SIGNAL void valueChanged();
 };

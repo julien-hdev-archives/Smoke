@@ -22,7 +22,7 @@ class SdfRendererProperties : public QObject
     Q_PROPERTY(AttributeListModel *attributes MEMBER _attributes NOTIFY
                    attributesChanged)
   public:
-    SdfRendererProperties(QObject *parent = nullptr);
+    SdfRendererProperties(QObject *parent);
     ~SdfRendererProperties() = default;
 
     /// \brief Create a SdfRenderer_Params,
@@ -31,6 +31,7 @@ class SdfRendererProperties : public QObject
 
   public:
     Q_SIGNAL void attributesChanged();
+    Q_SIGNAL void valueChanged();
 
   private:
     AttributeListModel *_attributes;

@@ -40,10 +40,7 @@ class Attribute : public QObject
 
     explicit Attribute(const Type type, const QString &name,
                        const QString &label, const QVariant &value,
-                       QObject *parent = nullptr)
-        : QObject(parent), _type(type), _name(name), _label(label),
-          _value(value)
-    {}
+                       QObject *parent = nullptr);
     virtual ~Attribute() = default;
 
     // ==============================
