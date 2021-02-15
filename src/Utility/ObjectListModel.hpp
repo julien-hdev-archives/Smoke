@@ -35,7 +35,7 @@ class ObjectListModel : public QAbstractListModel
     /// \remarks If the object is added to the list, the
     /// ListModel class takes its ownership.
     /// \param obj Pointer to the object.
-    void append(QObject *obj);
+    virtual void append(QObject *obj);
 
     /// \brief Returns the Object at the corresponding index.
     /// \param index Index in the list.
@@ -54,7 +54,7 @@ class ObjectListModel : public QAbstractListModel
         return _data.contains(obj);
     }
 
-  private:
+  protected:
     /// Internal list of QObjects.
     QObjectList _data;
 };
