@@ -23,6 +23,7 @@ class ObjectListModel : public QAbstractListModel
     QVariant data(const QModelIndex &index,
                   int role = Qt::DisplayRole) const override;
     Qt::ItemFlags flags(const QModelIndex &index) const override;
+    QHash<int, QByteArray> roleNames() const;
 
     // ==============================
     // Internal methods used to work directly with the data.
@@ -37,7 +38,8 @@ class ObjectListModel : public QAbstractListModel
 
     /// \brief Returns the Object at the corresponding index.
     /// \param index Index in the list.
-    inline const QObject *at(const size_t index) const
+    inline const QObject *
+    at(const size_t index) const
     {
         return _data.at(index);
     }
