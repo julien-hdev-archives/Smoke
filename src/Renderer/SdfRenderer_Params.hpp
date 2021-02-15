@@ -39,6 +39,19 @@ class SdfRendererProperties : public QObject
     }
     ~SdfRendererProperties() = default;
 
+    /// \brief Create a SdfRenderer_Params,
+    /// used for the Rendering thread.
+    const SdfRenderer_Params
+    sdfRenderer_Params() const
+    {
+        SdfRenderer_Params params;
+
+        params.absorptionCoefficient
+            = _attributes->find("absorptionCoefficient")->getValue().toFloat();
+
+        return params;
+    }
+
   public:
     Q_SIGNAL void attributesChanged();
 

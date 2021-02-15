@@ -24,10 +24,10 @@ class MyQuickFBO : public QQuickFramebufferObject
         return _camera;
     }
 
-    inline const SdfRenderer_Params &
+    inline const SdfRenderer_Params
     sdfRenderer_Params() const
     {
-        return _sdfRendererParams;
+        return _sdfRendererProperties->sdfRenderer_Params();
     }
 
   public:
@@ -35,7 +35,6 @@ class MyQuickFBO : public QQuickFramebufferObject
 
   private:
     Camera _camera;
-    SdfRenderer_Params _sdfRendererParams;
 
     SdfRendererProperties *_sdfRendererProperties;
 };
