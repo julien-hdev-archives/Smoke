@@ -45,6 +45,15 @@ class ObjectListModel : public QAbstractListModel
         return _data.at(index);
     }
 
+    /// \brief Check if the object is inside the list.
+    /// \param obj Object to check.
+    /// \returns True if inside, False otherwise.
+    inline bool
+    contains(QObject *obj) const
+    {
+        return _data.contains(obj);
+    }
+
   private:
     /// Internal list of QObjects.
     QObjectList _data;
