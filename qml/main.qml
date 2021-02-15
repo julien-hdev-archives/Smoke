@@ -40,6 +40,21 @@ ApplicationWindow {
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
+
+            ListView {
+                width: 180; height: 200
+                model: fbo.sdfRendererProperties.attributes
+
+                delegate: Slider {
+                    value: object.value
+                    from : 0
+                    to : 1
+                    stepSize : 0.01
+                    onMoved: {
+                        object.value = value
+                    }
+                }
+            }
         }
     }
 }
