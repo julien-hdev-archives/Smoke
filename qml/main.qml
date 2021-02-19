@@ -6,9 +6,9 @@ import SceneGraphRendering 1.0
 
 ApplicationWindow {
     visible: true
-    width: 480
-    height: 480
-    title: qsTr("Smoke Simulator !")
+    width: 1440
+    height: 720
+    title: qsTr("Smoke")
 
     ColumnLayout {
         anchors.fill: parent
