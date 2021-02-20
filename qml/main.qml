@@ -1,6 +1,8 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.15
+
 
 import SceneGraphRendering 1.0
 
@@ -13,8 +15,12 @@ ApplicationWindow {
     minimumWidth: 600
     minimumHeight: 500
 
+    SystemPalette { id: palette; colorGroup: SystemPalette.Active }
+   
     RowLayout {
         anchors.fill: parent
+        spacing : 1
+       
 
         ColumnLayout {
             id : column1
@@ -22,18 +28,16 @@ ApplicationWindow {
             anchors.fill: parent
             Layout.fillWidth: true
             Layout.minimumWidth: 400
-            Layout.maximumWidth: 2000
 
-
-                        Rectangle {
+            Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight: 100
-                color: "blue"
-
+                color: palette.window
+                
                 Text {
                     text: "This rectangle is a QML Item !"
-                    color: "white"
+                   color : palette.windowText
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -79,18 +83,17 @@ ApplicationWindow {
             anchors.left: column1
             Layout.fillWidth: true
             Layout.minimumWidth: 200
-            Layout.maximumWidth: 2000
+ 
 
 
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.preferredHeight: 100
-                color: "blue"
+                color : palette.window
 
                 Text {
                     text: "This rectangle is a QML Item !"
-                    color: "white"
+                    color : palette.windowText
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
