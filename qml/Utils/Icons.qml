@@ -110,6 +110,7 @@ QtObject {
     readonly property string bluetooth_connected: "\ue1a8"
     readonly property string bluetooth_disabled: "\ue1a9"
     readonly property string bluetooth_searching: "\ue1aa"
+    readonly property string light_mode: "\ue1b2"
     readonly property string blur_circular: "\ue3a2"
     readonly property string blur_linear: "\ue3a3"
     readonly property string blur_off: "\ue3a4"

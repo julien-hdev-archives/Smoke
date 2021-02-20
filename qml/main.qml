@@ -56,35 +56,44 @@ ApplicationWindow {
                     rows: 1; columns: 6; spacing: 3
 
                     Button {
-                         text: "Undo"
+                         font.family: Icons.fontFamily
+                         text: Icons.undo
                          //onClicked: model.submit()
                     }
 
                     Button {
-                         text: "Redo"
+                         font.family: Icons.fontFamily
+                         text: Icons.redo
                          //onClicked: model.submit()
                     }
 
                     Button {
-                         text: "Cube"
+                         font.family: Icons.fontFamily
+                         text: Icons.check_box_outline_blank
+
                          //onClicked: model.submit()
                     }
 
                 
                     Button {
-                         text: "Dome"
+                         font.family: Icons.fontFamily
+                         text: Icons.radio_button_unchecked
                          //onClicked: model.submit()
                     }
 
                 
+
                     Button {
-                         text: "Ponctual Light"
+                         font.family: Icons.fontFamily
+                         text: Icons.lightbulb
+                   
                          //onClicked: model.submit()
                     }
 
                                 
                     Button {
-                         text: "Global Light"
+                         font.family: Icons.fontFamily
+                         text: Icons.wb_sunny
                          //onClicked: model.submit()
                     }
                 }
