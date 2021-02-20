@@ -5,7 +5,7 @@ import QtQuick.Layouts 1.15
 import QtQml 2.15
 
 import SceneGraphRendering 1.0
-
+import "content"
 import Utils 1.0
 
 ApplicationWindow {
@@ -19,6 +19,15 @@ ApplicationWindow {
 
     Material.theme: Material.Dark
     Material.accent: Material.Orange
+
+       
+
+
+
+
+
+
+
 
     RowLayout {
         anchors.fill: parent
@@ -45,6 +54,7 @@ ApplicationWindow {
                     id: viewportControllersGrid
                     x: 4; anchors.bottom: parent.bottom; anchors.bottomMargin: 4
                     rows: 1; columns: 6; spacing: 3
+
                     Button {
                          text: "Undo"
                          //onClicked: model.submit()
@@ -133,7 +143,14 @@ ApplicationWindow {
                             horizontalAlignment: Text.AlignHLeft
                             verticalAlignment: Text.AlignVCenter
                             font.pixelSize: 18
+                            font.family: Fonts.workSans.semiBold.name
                         }
+
+
+                        
+
+
+
 
                         Rectangle {
                            id : borderBottom
@@ -155,14 +172,107 @@ ApplicationWindow {
 
                     color : Palette.window
 
-                    Text {
-                        text: "This rectangle is a QML Item !"
-                        color : Palette.windowText
-                        anchors.fill: parent
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
-                    }
 
+  
+
+
+
+
+
+
+
+/*
+        Text {
+            font.pixelSize: 42
+            Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
+            x: backButton.x + backButton.width + 20
+            anchors.verticalCenter: parent.verticalCenter
+            color: "white"
+            text: "Widget Gallery"
+        }*/
+
+
+
+
+
+
+
+
+
+
+
+     BorderImage {
+        border.bottom: 8
+
+        width: parent.width
+        height: 100
+
+        Rectangle {
+            id: backButton
+            width: opacity ? 60 : 0
+            anchors.left: parent.left
+            anchors.leftMargin: 20
+            opacity: stackView.depth > 1 ? 1 : 0
+            anchors.verticalCenter: parent.verticalCenter
+            antialiasing: true
+            height: 60
+            radius: 4
+            color: backmouse.pressed ? "#222" : "transparent"
+            Behavior on opacity { NumberAnimation{} }
+            Image {
+                anchors.verticalCenter: parent.verticalCenter
+                source: "images/navigation_previous_item.png"
+            }
+            MouseArea {
+                id: backmouse
+                anchors.fill: parent
+                anchors.margins: -10
+                onClicked: stackView.pop()
+            }
+        }
+
+
+     ListModel {
+        id: pageModel
+        ListElement {
+            title: "Buttons"
+            page: "content/ButtonPage.qml"
+        }
+        ListElement {
+            title: "Sliders"
+            page: "content/SliderPage.qml"
+        }
+    }
+
+    StackView {
+        id: stackView
+        anchors.fill: parent
+        // Implements back key navigation
+        focus: true
+        Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
+                             stackView.pop();
+                             event.accepted = true;
+                         }
+
+        initialItem: Item {
+            width: parent.width
+            height: parent.height
+            ListView {
+                model: pageModel
+                anchors.fill: parent
+                delegate: AndroidDelegate {
+                    text: title
+                    onClicked: stackView.push(Qt.resolvedUrl(page))
+                }
+            }
+        }
+    }
+
+
+
+
+                      }
+                    /*
                     ListView {
                         width: 180; height: 200
                         model: fbo.sdfRendererProperties.attributes
@@ -176,7 +286,7 @@ ApplicationWindow {
                                 object.value = value
                             }
                         }
-                    }
+                    }*/
                 }
             }
         }
