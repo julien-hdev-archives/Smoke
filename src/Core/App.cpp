@@ -8,6 +8,7 @@
 #include <QQuickStyle>
 #include <QPalette>
 #include <QQmlEngine>
+#include <QIcon>
 
 #include "Utility/Time.hpp"
 
@@ -44,6 +45,8 @@ App::setupEngine()
     const QUrl url(QStringLiteral("qml/main.qml"));
    
     QQuickStyle::setStyle("Material");
+
+    this->setWindowIcon(QIcon("qml/images/smoke_icon.png"));
 
     QObject::connect(
         &_engine, &QQmlApplicationEngine::objectCreated, this,

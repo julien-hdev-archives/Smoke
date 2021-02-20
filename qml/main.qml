@@ -58,19 +58,21 @@ ApplicationWindow {
                     Button {
                          font.family: Icons.fontFamily
                          text: Icons.undo
+                         width: 50
                          //onClicked: model.submit()
                     }
 
                     Button {
                          font.family: Icons.fontFamily
                          text: Icons.redo
+                         width: 50
                          //onClicked: model.submit()
                     }
 
                     Button {
                          font.family: Icons.fontFamily
                          text: Icons.check_box_outline_blank
-
+                         width: 50
                          //onClicked: model.submit()
                     }
 
@@ -78,6 +80,7 @@ ApplicationWindow {
                     Button {
                          font.family: Icons.fontFamily
                          text: Icons.radio_button_unchecked
+                         width: 50
                          //onClicked: model.submit()
                     }
 
@@ -86,7 +89,7 @@ ApplicationWindow {
                     Button {
                          font.family: Icons.fontFamily
                          text: Icons.lightbulb
-                   
+                         width: 50
                          //onClicked: model.submit()
                     }
 
@@ -94,6 +97,7 @@ ApplicationWindow {
                     Button {
                          font.family: Icons.fontFamily
                          text: Icons.wb_sunny
+                         width: 50
                          //onClicked: model.submit()
                     }
                 }
