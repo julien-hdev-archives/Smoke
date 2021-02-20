@@ -1,3 +1,4 @@
 module Utils
 
 singleton Palette 1.0 Palette.qml
+singleton Fonts 1.0 Fonts.qml
