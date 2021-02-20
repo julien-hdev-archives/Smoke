@@ -13,7 +13,6 @@ class App : public QGuiApplication
   private:
     void setupOpenGLContext() const;
     void setupEngine();
-    void setupPaletteColor();
 
   private:
     QQmlApplicationEngine _engine;

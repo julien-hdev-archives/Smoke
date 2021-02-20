@@ -2,9 +2,11 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.15
-
+import QtQml 2.15
 
 import SceneGraphRendering 1.0
+
+import Utils 1.0
 
 ApplicationWindow {
     title: qsTr("Smoke")
@@ -15,15 +17,16 @@ ApplicationWindow {
     minimumWidth: 600
     minimumHeight: 500
 
-    SystemPalette { id: palette; colorGroup: SystemPalette.Active }
-   
+    Material.theme: Material.Dark
+    Material.accent: Material.Orange
+
     RowLayout {
         anchors.fill: parent
         spacing : 1
        
-
         ColumnLayout {
             id : column1
+            spacing : 1
 
             anchors.fill: parent
             Layout.fillWidth: true
@@ -33,33 +36,17 @@ ApplicationWindow {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight: 100
-                color: palette.window
+                color: Palette.window
                 
                 Text {
                     text: "This rectangle is a QML Item !"
-                   color : palette.windowText
+                    color : Palette.windowText
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                 }
 
-                ListView {
-                    width: 180; height: 200
-                    model: fbo.sdfRendererProperties.attributes
-
-                    delegate: Slider {
-                        value: object.value
-                        from : 0
-                        to : 1
-                        stepSize : 0.01
-                        onMoved: {
-                            object.value = value
-                        }
-                    }
-                }
             }
-
-
 
             MyQuickFBO {
                 id: fbo
@@ -75,7 +62,6 @@ ApplicationWindow {
                 }
             }
 
-
         }
 
         ColumnLayout {
@@ -83,22 +69,96 @@ ApplicationWindow {
             anchors.left: column1
             Layout.fillWidth: true
             Layout.minimumWidth: 200
- 
+            
+            spacing : 1
+
+            RowLayout {
+            id : ceneHierarchy
 
 
-            Rectangle {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                color : palette.window
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    color : Palette.window
 
-                Text {
-                    text: "This rectangle is a QML Item !"
-                    color : palette.windowText
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
+                    Rectangle {
+                        id : header
+                        Layout.fillWidth: true
+                        height: 30
+                        color : blue
+
+                        Text {
+                            text: "Scene Hierarchy"
+                            color : Palette.windowText
+                            anchors.fill: parent
+                            horizontalAlignment: Text.AlignHLeft
+                            verticalAlignment: Text.AlignVCenter
+                            font.pixelSize: 32
+                        }
+                    }
+
+                    Text {
+                        text: "This rectangle is a QML Item !"
+                        color : Palette.windowText
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+                }
+            }
+
+            RowLayout {
+            id : componentControllers
+
+                Rectangle {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    color : Palette.window
+
+
+
+                    Text {
+                        text: "This rectangle is a QML Item !"
+                        color : Palette.windowText
+                        anchors.fill: parent
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                    }
+
+                    ListView {
+                        width: 180; height: 200
+                        model: fbo.sdfRendererProperties.attributes
+
+                        delegate: Slider {
+                            value: object.value
+                            from : 0
+                            to : 1
+                            stepSize : 0.01
+                            onMoved: {
+                                object.value = value
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 }
+
+
+
+ /*
+                    MenuBar {
+                        Menu {
+                            title: qsTr("File")
+                            MenuItem {
+                                text: qsTr("&Open")
+                                onTriggered: console.log("Open action triggered");
+                            }
+                            MenuItem {
+                                text: qsTr("Exit")
+                                onTriggered: Qt.quit();
+                            }
+                        }
+                    }
+                    */
