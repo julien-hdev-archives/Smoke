@@ -33,20 +33,51 @@ ApplicationWindow {
             Layout.preferredWidth : 70 // %
 
             Rectangle {
+                id : viewportControllers
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight: 10 // %
 
                 color: Palette.window
                 
-                Text {
-                    text: "This rectangle is a QML Item !"
-                    color : Palette.windowText
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                }
 
+                Grid {
+                    id: viewportControllersGrid
+                    x: 4; anchors.bottom: parent.bottom; anchors.bottomMargin: 4
+                    rows: 1; columns: 6; spacing: 3
+                    Button {
+                         text: "Undo"
+                         //onClicked: model.submit()
+                    }
+
+                    Button {
+                         text: "Redo"
+                         //onClicked: model.submit()
+                    }
+
+                    Button {
+                         text: "Cube"
+                         //onClicked: model.submit()
+                    }
+
+                
+                    Button {
+                         text: "Dome"
+                         //onClicked: model.submit()
+                    }
+
+                
+                    Button {
+                         text: "Ponctual Light"
+                         //onClicked: model.submit()
+                    }
+
+                                
+                    Button {
+                         text: "Global Light"
+                         //onClicked: model.submit()
+                    }
+                }
             }
 
             MyQuickFBO {
@@ -75,36 +106,41 @@ ApplicationWindow {
             spacing : 1
 
             RowLayout {
-            id : ceneHierarchy
-
-
+            id : sceneHierarchy
+                
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    Layout.preferredHeight : 35 // %
+
+  
                     color : Palette.window
 
                     Rectangle {
-                        id : header
-                        Layout.fillWidth: true
-                        height: 30
-                        color : Palette.midlight
+                        id : head
+                        anchors.top : parent.top
+                        height: 40
+                        
+                        color :  "#FFFFFF" 
 
+                        
                         Text {
                             text: "Scene Hierarchy"
                             color : Palette.windowText
                             anchors.fill: parent
+                            anchors.leftMargin: 10;
+
                             horizontalAlignment: Text.AlignHLeft
                             verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 32
+                            font.pixelSize: 18
                         }
-                    }
 
-                    Text {
-                        text: "This rectangle is a QML Item !"
-                        color : Palette.windowText
-                        anchors.fill: parent
-                        horizontalAlignment: Text.AlignHCenter
-                        verticalAlignment: Text.AlignVCenter
+                        Rectangle {
+                           id : borderBottom
+                           height: 1
+                           color : "#FFFFFF"
+                           anchors.bottom : parent.bottom
+                        }
                     }
                 }
             }
@@ -115,9 +151,9 @@ ApplicationWindow {
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
+                    Layout.preferredHeight : 65 // %
+
                     color : Palette.window
-
-
 
                     Text {
                         text: "This rectangle is a QML Item !"
