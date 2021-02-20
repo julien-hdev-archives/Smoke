@@ -25,17 +25,18 @@ ApplicationWindow {
         spacing : 1
        
         ColumnLayout {
-            id : column1
+            id : viewport
             spacing : 1
 
-            anchors.fill: parent
             Layout.fillWidth: true
-            Layout.minimumWidth: 400
+            Layout.fillHeight: true
+            Layout.preferredWidth : 70 // %
 
             Rectangle {
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.preferredHeight: 100
+                Layout.preferredHeight: 10 // %
+
                 color: Palette.window
                 
                 Text {
@@ -52,7 +53,8 @@ ApplicationWindow {
                 id: fbo
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.preferredHeight: 380
+                Layout.preferredHeight: 90 // %
+
                 MouseArea {
                     anchors.fill: parent
                     onPressed: fbo.onMousePress()
@@ -65,10 +67,10 @@ ApplicationWindow {
         }
 
         ColumnLayout {
-            id : column2
-            anchors.left: column1
+            id : controllers
             Layout.fillWidth: true
-            Layout.minimumWidth: 200
+            Layout.fillHeight: true
+            Layout.preferredWidth : 30 // %
             
             spacing : 1
 
@@ -85,7 +87,7 @@ ApplicationWindow {
                         id : header
                         Layout.fillWidth: true
                         height: 30
-                        color : blue
+                        color : Palette.midlight
 
                         Text {
                             text: "Scene Hierarchy"
