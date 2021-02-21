@@ -232,6 +232,32 @@ ApplicationWindow {
                 Layout.fillHeight: true
                 Layout.preferredHeight : 85 // %
 
+                style: OldControlsStyles.TreeViewStyle {
+                    indentation : 30
+                    backgroundColor : Palette.window 
+                    frame: Rectangle {color: "transparent"; border.width : 0 }
+                   
+
+                   headerDelegate:  Rectangle { 
+                        height: 25
+                        color: Palette.window
+                        border.width : 1 
+                        border.color : Palette.darkestGrey
+                        Text {
+                         height : parent.height
+                         verticalAlignment : Text.AlignVCenter
+                         color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
+                         text: styleData.value
+                         font.family : Fonts.workSans.semiBold.name
+                         font.pixelSize: 14
+                         leftPadding : 4
+                        }
+
+                    }
+
+                   
+                }
+
 
                 model: treemodel
                 OldControls.TableViewColumn {
