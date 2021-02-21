@@ -56,7 +56,6 @@ ApplicationWindow {
 
                 color: Palette.window
                 
-
                 Grid {
                     id: viewportControllersGrid
                     x: 4; anchors.bottom: parent.bottom; anchors.bottomMargin: 1
@@ -68,8 +67,6 @@ ApplicationWindow {
                     CButtonIcon { width: 50; height: 40; icon : Icons.radio_button_unchecked }
                     CButtonIcon { width: 50; height: 40; icon : Icons.lightbulb }
                     CButtonIcon { width: 50; height: 40; icon : Icons.wb_sunny }
-                    
-
                 }
 
                 ListView {
@@ -88,8 +85,7 @@ ApplicationWindow {
                                 object.value = value
                             }
                         }
-                    }
-
+                }
             }
 
             MyQuickFBO {
@@ -123,51 +119,50 @@ ApplicationWindow {
                 id : hierarchy
                 spacing : 0
 
-            HeaderSection { 
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.preferredHeight : 30 
-                Layout.minimumHeight : 25 
-                Layout.maximumHeight : 35 
-                text :"Scene Hierarchy" 
-            }   
-
-            MyTreeView {
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.preferredHeight : 85 // %
-            }
-        }
-
-         
-        ColumnLayout {
-            id : componentControllers
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            Layout.preferredHeight : 65 // %
-            spacing : 1
-
-            HeaderSection { 
-                Layout.fillWidth: true
-                Layout.fillHeight: true
-                Layout.preferredHeight : 30 
-                Layout.minimumHeight : 25 
-                Layout.maximumHeight : 35 
-                text : "Components"
-            }
-
-            Rectangle {
+                HeaderSection { 
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.preferredHeight : 55 // %
-                    color : Palette.window
-                  
+                    Layout.preferredHeight : 30 
+                    Layout.minimumHeight : 25 
+                    Layout.maximumHeight : 35 
+                    text :"Scene Hierarchy" 
+                }   
 
-                }                
+                MyTreeView {
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.preferredHeight : 85 // %
+                }
+            }
+
+         
+            ColumnLayout {
+                id : componentControllers
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredHeight : 65 // %
+                spacing : 1
+
+                HeaderSection { 
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.preferredHeight : 30 
+                    Layout.minimumHeight : 25 
+                    Layout.maximumHeight : 35 
+                    text : "Components"
+                }
+
+                Rectangle {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.preferredHeight : 55 // %
+                        color : Palette.window
+                    }                
+                }
             }
         }
-    }
 }
+
 
 
 

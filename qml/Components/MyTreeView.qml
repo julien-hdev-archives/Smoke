@@ -12,100 +12,103 @@ Item {
 
     TreeModel {
         id: faketreeModel
-        roles: ["name","population"]
+        roles: ["name","typeName"]
 
         TreeElement {
             property string name: "Collection 1"
-            property string type: "Collection"
+            property string typeName: "Collection"
             TreeElement {
                 property string name: "MainCam";
-                property string type: "Camera"
+                property string typeName: "Camera";
             }
             TreeElement {
                 property string name: "Lights";
-                property string type: "Group"
-                TreeElement { property string name: "Light1";  property string type: "Ponctual Light" }
-                TreeElement { property string name: "Light2";  property string type: "Global Light" }
+                property string typeName: "Group";
+                TreeElement { property string name: "Light1";  property string typeName: "Ponctual Light" }
+                TreeElement { property string name: "Light2";  property string typeName: "Global Light" }
             }
             TreeElement {
                 property string name: "SmokeEffects";
-                property string type: "Group"
-                TreeElement {property string name: "SmokeLeft";  property string type: "SmokeEffect" }
-                TreeElement {property string name: "SmokeRight";  property string type: "SmokeEffect" }
-                TreeElement {property string name: "SmokeCenter";  property string type: "SmokeEffect" }
+                property string typeName: "Group";
+                TreeElement {property string name: "SmokeLeft";  property string typeName: "SmokeEffect" }
+                TreeElement {property string name: "SmokeRight";  property string typeName: "SmokeEffect" }
+                TreeElement {property string name: "SmokeCenter";  property string typeName: "SmokeEffect" }
             }
             TreeElement { 
                 property string name: "Obstacles";  
-                property string type: "Group" 
-                TreeElement { property string name: "Balloon";  property string type: "Sphere" }
-                TreeElement { property string name: "House";  property string type: "Cube" }
+                property string typeName: "Group";
+                TreeElement { property string name: "Balloon";  property string typeName: "Sphere" }
+                TreeElement { property string name: "House";  property string typeName: "Cube" }
 
             }
         }
     }
 
     TreeView {
-                anchors.fill: parent
-                style: TreeViewStyle {
-                    indentation : 30
-                    backgroundColor : Palette.window 
-                    frame: Rectangle {color: "transparent"; border.width : 0 }
+
+        anchors.fill: parent
+        model: faketreeModel
+
+        style: TreeViewStyle {
+            indentation : 30
+            backgroundColor : Palette.window 
+            frame: Rectangle {color: "transparent"; border.width : 0 }
                    
 
-                   headerDelegate:  Rectangle { 
-                        height: 25
-                        color: Palette.window
-                        border.width : 1 
-                        border.color : Palette.darkestGrey
-                        Text {
-                         height : parent.height
-                         verticalAlignment : Text.AlignVCenter
-                         color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
-                         text: styleData.value
-                         font.family : Fonts.workSans.semiBold.name
-                         font.pixelSize: 14
-                         leftPadding : 4
-                        }
-
-                    }
-
-                    rowDelegate: Rectangle { 
-                        height: 25
-                        color: (styleData.selected) ? Palette.highlight : (styleData.row % 2) ? Palette.window : Palette.darkestGrey
-                    }
-
-                    itemDelegate: Text {
-                         verticalAlignment : Text.AlignVCenter
-                         color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
-                         text: styleData.value
-                         font.family : Fonts.workSans.semiBold.name
-                         leftPadding : 4
-                    }
-
-                    branchDelegate: Image {
-                        source: "../images/navigation_next_item.png"
-                        width:14; height:14
-                        transformOrigin: Item.Center
-                        rotation: styleData.isExpanded ? 90 : 0
-                    }
+            headerDelegate:  Rectangle { 
+                height: 25
+                color: Palette.window
+                border.width : 1 
+                border.color : Palette.darkestGrey
+                Text {
+                    height : parent.height
+                    verticalAlignment : Text.AlignVCenter
+                    color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
+                    text: styleData.value
+                    font.family : Fonts.workSans.semiBold.name
+                    font.pixelSize: 14
+                    leftPadding : 4
                 }
 
+            }
 
-                model: faketreeModel
-                TableViewColumn {
-                    title: "Name"
-                    role: "name"
-                    width: 200
-                }
-                TableViewColumn {
-                    title: "Type"
-                    role: "type"
-                    width: 200
-                }
+            rowDelegate: Rectangle { 
+                height: 25
+                color: (styleData.selected) ? Palette.highlight : (styleData.row % 2) ? Palette.window : Palette.darkestGrey
+            }
 
+            itemDelegate: Text {
+                    verticalAlignment : Text.AlignVCenter
+                    color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
+                    text: styleData.value
+                    font.family : Fonts.workSans.semiBold.name
+                    leftPadding : 4
+            }
 
+            branchDelegate: Image {
+                source: "../images/navigation_next_item.png"
+                width:14; height:14
+                transformOrigin: Item.Center
+                rotation: styleData.isExpanded ? 90 : 0
+            }
+        }
 
-            }   
+        Item {
+
+            TableViewColumn {
+                title: "Name"
+                role: "name"
+                width: 200
+                Accessible: parent 
+            }
+
+            TableViewColumn {
+                title: "Type"
+                role: "typeName"
+                width: 200
+            }
+        }
+    }   
 }
 
 
