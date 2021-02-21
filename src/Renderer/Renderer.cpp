@@ -19,6 +19,7 @@ Renderer::Initialize()
             qFatal("Unable to create VAO.");
         s_fullscreenPosAndUV_VAO.bind();
         // Vertex buffer
+        
         float vertices[]
             = { // Pos       UV
                 -1.f, 1.f, 0.f, 0.f, 3.f, 1.f, 2.f, 0.f, -1.f, -3.f, 0.f, 2.f

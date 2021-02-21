@@ -1,6 +1,8 @@
 #include "Core/App.hpp"
 #include "Core/MessageHandler.hpp"
 #include "Renderer/MyQuickFBO.hpp"
+#include "UI/Tree/MyTreeNode.hpp"
+#include "UI/Tree/MyTreeModel.hpp"
 
 #include <QSurfaceFormat>
 #include <QtGlobal>
@@ -17,6 +19,10 @@ App::App(int &argc, char **argv) : QGuiApplication(argc, argv)
     Time::Initialize();
 
     qmlRegisterType<MyQuickFBO>("SceneGraphRendering", 1, 0, "MyQuickFBO");
+
+    qmlRegisterType<MyTreeModel>("MyTree", 1, 0, "TreeModel");
+    qmlRegisterType<MyTreeNode>("MyTree", 1, 0, "TreeElement");
+
 
     qInstallMessageHandler(MessageHandler::handler);
 
@@ -45,7 +51,6 @@ App::setupEngine()
     const QUrl url(QStringLiteral("qml/main.qml"));
    
     QQuickStyle::setStyle("Material");
-
     this->setWindowIcon(QIcon("qml/images/smoke_icon.png"));
 
     QObject::connect(

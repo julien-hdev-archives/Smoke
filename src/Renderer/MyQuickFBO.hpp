@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Camera/Camera.hpp"
-#include "Core/Attribute/FloatAttribute.hpp"
+#include "UI/Attribute/FloatAttribute.hpp"
 #include "SdfRendererProperties.hpp"
 #include <QtQuick/QQuickFramebufferObject>
 
