@@ -37,66 +37,59 @@ ApplicationWindow {
             Layout.fillHeight: true
             Layout.preferredWidth : 70 // %
 
+            HeaderSection { 
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredHeight : 30 
+                Layout.minimumHeight : 25 
+                Layout.maximumHeight : 35 
+                text : "Viewport"
+            }
+
             Rectangle {
                 id : viewportControllers
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.preferredHeight: 10 // %
+                Layout.preferredHeight : 35 
+                Layout.minimumHeight : 30 
+                Layout.maximumHeight : 40 
 
                 color: Palette.window
                 
 
                 Grid {
                     id: viewportControllersGrid
-                    x: 4; anchors.bottom: parent.bottom; anchors.bottomMargin: 4
+                    x: 4; anchors.bottom: parent.bottom; anchors.bottomMargin: 1
                     rows: 1; columns: 6; spacing: 3
 
-                    Button {
-                         font.family: Icons.fontFamily
-                         text: Icons.undo
-                         width: 50
-                         //onClicked: model.submit()
-                    }
+                    CButtonIcon { width: 50; height: 40; icon : Icons.undo }
+                    CButtonIcon { width: 50; height: 40; icon : Icons.redo }
+                    CButtonIcon { width: 50; height: 40; icon : Icons.check_box_outline_blank }
+                    CButtonIcon { width: 50; height: 40; icon : Icons.radio_button_unchecked }
+                    CButtonIcon { width: 50; height: 40; icon : Icons.lightbulb }
+                    CButtonIcon { width: 50; height: 40; icon : Icons.wb_sunny }
+                    
 
-                    Button {
-                         font.family: Icons.fontFamily
-                         text: Icons.redo
-                         width: 50
-                         //onClicked: model.submit()
-                    }
-
-                    Button {
-                         font.family: Icons.fontFamily
-                         text: Icons.check_box_outline_blank
-                         width: 50
-                         //onClicked: model.submit()
-                    }
-
-                
-                    Button {
-                         font.family: Icons.fontFamily
-                         text: Icons.radio_button_unchecked
-                         width: 50
-                         //onClicked: model.submit()
-                    }
-
-                
-
-                    Button {
-                         font.family: Icons.fontFamily
-                         text: Icons.lightbulb
-                         width: 50
-                         //onClicked: model.submit()
-                    }
-
-                                
-                    Button {
-                         font.family: Icons.fontFamily
-                         text: Icons.wb_sunny
-                         width: 50
-                         //onClicked: model.submit()
-                    }
                 }
+
+                ListView {
+                        anchors.right : parent.right
+                        anchors.rightMargin : 30
+
+                        width: 180; height: 200
+                        model: fbo.sdfRendererProperties.attributes
+
+                        delegate: Slider {
+                            value: object.value
+                            from : 0
+                            to : 1
+                            stepSize : 0.01
+                            onMoved: {
+                                object.value = value
+                            }
+                        }
+                    }
+
             }
 
             MyQuickFBO {
@@ -144,10 +137,6 @@ ApplicationWindow {
                 Layout.fillHeight: true
                 Layout.preferredHeight : 85 // %
             }
-
-            
-
-
         }
 
          
@@ -173,24 +162,8 @@ ApplicationWindow {
                     Layout.preferredHeight : 55 // %
                     color : Palette.window
                   
-                    ListView {
-                        width: 180; height: 200
-                        model: fbo.sdfRendererProperties.attributes
 
-                        delegate: Slider {
-                            value: object.value
-                            from : 0
-                            to : 1
-                            stepSize : 0.01
-                            onMoved: {
-                                object.value = value
-                            }
-                        }
-                    }
-
-                }
-
-                
+                }                
             }
         }
     }

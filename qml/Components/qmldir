@@ -2,3 +2,4 @@ module Components
 
 HeaderSection 1.0 HeaderSection.qml
 MyTreeView 1.0 MyTreeView.qml
+CButtonIcon 1.0 CButtonIcon.qml
