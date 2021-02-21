@@ -1,17 +1,20 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Controls 1.4 as OldControls
-import QtQuick.Controls.Styles 1.4 as OldControlsStyles
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.2    
 import QtQuick.Dialogs 1.2
 import QtQml 2.15
 
+import QtQuick.Controls 1.4 as OldControls
+import QtQuick.Controls.Styles 1.4 as OldControlsStyles
+
 import SceneGraphRendering 1.0
 import MyTree 1.0
-import "content"
 import Utils 1.0
+import Components 1.0
+import "content"
+
 
 ApplicationWindow {
     title: qsTr("Smoke")
@@ -199,33 +202,11 @@ ApplicationWindow {
                 id : hierarchy
                 spacing : 0
 
-                Rectangle {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.preferredHeight : 15 // %
-                    color :  Palette.darkestGrey
-
-                        
-                        Text {
-                            text: "Scene Hierarchy"
-                            color : Palette.windowText
-                            anchors.fill: parent
-                            anchors.leftMargin: 10;
-
-                            horizontalAlignment: Text.AlignHLeft
-                            verticalAlignment: Text.AlignVCenter
-                            font.pixelSize: 18
-                            font.family: Fonts.workSans.semiBold.name
-                        }
-
-                        Rectangle {
-                           id : borderBottom
-                           height: 1
-                           color : "#FFFFFF"
-                           anchors.bottom : parent.bottom
-                       }
-                    
-                }
+             HeaderSection { 
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredHeight : 15 // %
+                text :"Scene Hierarchy" }   
 
              OldControls.TreeView {
                 Layout.fillWidth: true
