@@ -255,7 +255,25 @@ ApplicationWindow {
 
                     }
 
-                   
+                    rowDelegate: Rectangle { 
+                        height: 25
+                        color: (styleData.selected) ? Palette.highlight : (styleData.row % 2) ? Palette.window : Palette.darkestGrey
+                    }
+
+                    itemDelegate: Text {
+                         verticalAlignment : Text.AlignVCenter
+                         color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
+                         text: styleData.value
+                         font.family : Fonts.workSans.semiBold.name
+                         leftPadding : 4
+                    }
+
+                    branchDelegate: Image {
+                        source: "images/navigation_next_item.png"
+                        width:14; height:14
+                        transformOrigin: Item.Center
+                        rotation: styleData.isExpanded ? 90 : 0
+                    }
                 }
 
 
