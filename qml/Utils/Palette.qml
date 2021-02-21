@@ -8,7 +8,7 @@ QtObject {
     
     // Color
     readonly property color lightestGrey: Material.color(Material.Grey, Material.Shade300)
-    readonly property color lightGrey: Material.color(Material.Grey, Material.Shade500)
+    readonly property color lightGrey: Material.color(Material.Grey, Material.Shade700)
     readonly property color darkGrey: Material.color(Material.Grey, Material.Shade800)
     readonly property color darkestGrey: Material.color(Material.Grey, Material.Shade900)
     readonly property color lightestTeal: Material.color(Material.Teal, Material.Shade100)
@@ -29,8 +29,8 @@ QtObject {
     readonly property color buttonText: "#D4D4D4"
     readonly property color base: "#3C3C3C"
     readonly property color shadow: "#000000"
-    readonly property color highlight: "#262626"
-    readonly property color highlightedText: "#F0F0F0"
+    readonly property color highlight: "#353535"
+    readonly property color highlightedText: "#F3590C"
     readonly property color link: "#7878FF"
     readonly property color linkVisited: "#FF00FF"
     readonly property color alternateBase: "#2D2D2D"
