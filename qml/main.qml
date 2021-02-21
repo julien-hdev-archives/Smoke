@@ -1,10 +1,15 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls 1.4 as OldControls
+import QtQuick.Controls.Styles 1.4 as OldControlsStyles
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.15
+import QtQuick.Window 2.2    
+import QtQuick.Dialogs 1.2
 import QtQml 2.15
 
 import SceneGraphRendering 1.0
+import MyTree 1.0
 import "content"
 import Utils 1.0
 
@@ -20,15 +25,75 @@ ApplicationWindow {
     Material.theme: Material.Dark
     Material.accent: Material.Orange
 
-       
+    Component {
+        id: fakePlace
+        TreeElement {
+            property string name: getFakePlaceName()
+            property string population: getFakePopulation()
+            property string type: "Fake place"
+            function getFakePlaceName() {
+                var rez = "";
+                for(var i = 0;i < Math.round(3 + Math.random() * 7);i ++) {
+                    rez += String.fromCharCode(97 + Math.round(Math.random() * 25));
+                }
+                return rez.charAt(0).toUpperCase() + rez.slice(1);
+            }
+            function getFakePopulation() {
+                var num = Math.round(Math.random() * 100000000);
+                num = num.toString().split("").reverse().join("");
+                num = num.replace(/(\d{3})/g, '$1,');
+                num = num.split("").reverse().join("");
+                return num[0] === ',' ? num.slice(1) : num;
+            }
+        }
+    }
+
+    TreeModel {
+        id: treemodel
+        roles: ["name","population"]
+
+        TreeElement {
+            property string name: "Asia"
+            property string population: "4,164,252,000"
+            property string type: "Continent"
+            TreeElement {
+                property string name: "China";
+                property string population: "1,343,239,923"
+                property string type: "Country"
+                TreeElement { property string name: "Shanghai"; property string population: "20,217,700"; property string type: "City" }
+                TreeElement { property string name: "Beijing"; property string population: "16,446,900"; property string type: "City" }
+                TreeElement { property string name: "Chongqing"; property string population: "11,871,200"; property string type: "City" }
+            }
+            TreeElement {
+                property string name: "India";
+                property string population: "1,210,193,422"
+                property string type: "Country"
+                TreeElement { property string name: "Mumbai"; property string population: "12,478,447"; property string type: "City" }
+                TreeElement { property string name: "Delhi"; property string population: "11,007,835"; property string type: "City" }
+                TreeElement { property string name: "Bengaluru"; property string population: "8,425,970"; property string type: "City" }
+            }
+            TreeElement {
+                property string name: "Indonesia";
+                property string population: "248,645,008"
+                property string type: "Country"
+                TreeElement {property string name: "Jakarta"; property string population: "9,588,198"; property string type: "City" }
+                TreeElement {property string name: "Surabaya"; property string population: "2,765,487"; property string type: "City" }
+                TreeElement {property string name: "Bandung"; property string population: "2,394,873"; property string type: "City" }
+            }
+        }
+        TreeElement { property string name: "Africa"; property string population: "1,022,234,000"; property string type: "Continent" }
+        TreeElement { property string name: "North America"; property string population: "542,056,000"; property string type: "Continent" }
+        TreeElement { property string name: "South America"; property string population: "392,555,000"; property string type: "Continent" }
+        TreeElement { property string name: "Antarctica"; property string population: "4,490"; property string type: "Continent" }
+        TreeElement { property string name: "Europe"; property string population: "738,199,000"; property string type: "Continent" }
+        TreeElement { property string name: "Australia"; property string population: "29,127,000"; property string type: "Continent" }
+    }
 
 
 
 
 
-
-
-
+      
     RowLayout {
         anchors.fill: parent
         spacing : 1
@@ -124,27 +189,21 @@ ApplicationWindow {
             id : controllers
             Layout.fillWidth: true
             Layout.fillHeight: true
-            Layout.preferredWidth : 30 // %
-            
+            Layout.preferredWidth : 35 // %
             spacing : 1
 
-            RowLayout {
-            id : sceneHierarchy
-                
+            ColumnLayout {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredHeight : 35 // %
+                id : hierarchy
+                spacing : 0
+
                 Rectangle {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
-                    Layout.preferredHeight : 35 // %
-
-  
-                    color : Palette.window
-
-                    Rectangle {
-                        id : head
-                        anchors.top : parent.top
-                        height: 40
-                        
-                        color :  "#FFFFFF" 
+                    Layout.preferredHeight : 15 // %
+                    color :  Palette.darkestGrey
 
                         
                         Text {
@@ -159,23 +218,97 @@ ApplicationWindow {
                             font.family: Fonts.workSans.semiBold.name
                         }
 
-
-                        
-
-
-
-
                         Rectangle {
                            id : borderBottom
                            height: 1
                            color : "#FFFFFF"
                            anchors.bottom : parent.bottom
+                       }
+                    
+                }
+
+             OldControls.TreeView {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                Layout.preferredHeight : 85 // %
+
+                style: OldControlsStyles.TreeViewStyle {
+                    indentation : 30
+                    backgroundColor : Palette.window 
+                    frame: Rectangle {color: "transparent"; border.width : 0 }
+                   
+
+                   headerDelegate:  Rectangle { 
+                        height: 25
+                        color: Palette.window
+                        border.width : 1 
+                        border.color : Palette.darkestGrey
+                        Text {
+                         height : parent.height
+                         verticalAlignment : Text.AlignVCenter
+                         color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
+                         text: styleData.value
+                         font.family : Fonts.workSans.semiBold.name
+                         font.pixelSize: 14
+                         leftPadding : 4
                         }
+
+                    }
+
+                    rowDelegate: Rectangle { 
+                        height: 25
+                        color: (styleData.selected) ? Palette.highlight : (styleData.row % 2) ? Palette.window : Palette.darkestGrey
+                    }
+
+                    itemDelegate: Text {
+                         verticalAlignment : Text.AlignVCenter
+                         color: (styleData.selected) ? Palette.highlightedText : Palette.windowText
+                         text: styleData.value
+                         font.family : Fonts.workSans.semiBold.name
+                         leftPadding : 4
+                    }
+
+                    branchDelegate: Image {
+                        source: "images/navigation_next_item.png"
+                        width:14; height:14
+                        transformOrigin: Item.Center
+                        rotation: styleData.isExpanded ? 90 : 0
                     }
                 }
-            }
 
-            RowLayout {
+
+                model: treemodel
+                OldControls.TableViewColumn {
+                    title: "Name"
+                    role: "name"
+                    width: 200
+                }
+                OldControls.TableViewColumn {
+                    title: "Type"
+                    role: "population"
+                    width: 200
+                }
+
+                onDoubleClicked: {
+                    var element = fakePlace.createObject(treemodel);
+                    treemodel.insertNode(element, index, -1);
+                }
+                onPressAndHold: {
+                    var element = treemodel.getNodeByIndex(index);
+                    messageDialog.text = element.type + ": " + element.name + "\nPopulation: " + element.population;
+                    messageDialog.open();
+                }
+            }
+            /*
+            MessageDialog {
+                  id: messageDialog
+                  title: "Info"
+              }
+              */
+        }
+
+         
+        RowLayout {
             id : componentControllers
 
                 Rectangle {
@@ -186,33 +319,33 @@ ApplicationWindow {
                     color : Palette.window
 
 
+                    Rectangle {
+                        id : head2
+                        anchors.top : parent.top
+                        height: 40
+                        
+                        color :  "#FFFFFF" 
+
+                        
+                        Text {
+                            text: "Components"
+                            color : Palette.windowText
+                            anchors.fill: parent
+                            anchors.leftMargin: 10;
+
+                            horizontalAlignment: Text.AlignHLeft
+                            verticalAlignment: Text.AlignVCenter
+                            font.pixelSize: 18
+                            font.family: Fonts.workSans.semiBold.name
+                        }
+
+                        Rectangle {
   
-
-
-
-
-
-
-
-/*
-        Text {
-            font.pixelSize: 42
-            Behavior on x { NumberAnimation{ easing.type: Easing.OutCubic} }
-            x: backButton.x + backButton.width + 20
-            anchors.verticalCenter: parent.verticalCenter
-            color: "white"
-            text: "Widget Gallery"
-        }*/
-
-
-
-
-
-
-
-
-
-
+                           height: 1
+                           color : "#FFFFFF"
+                           anchors.bottom : parent.bottom
+                        }
+                    }
 
      BorderImage {
         border.bottom: 8
@@ -257,10 +390,12 @@ ApplicationWindow {
         }
     }
 
+    /*
     StackView {
         id: stackView
+        anchors.top: head2.bottom
         anchors.fill: parent
-        // Implements back key navigation
+
         focus: true
         Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
                              stackView.pop();
@@ -278,8 +413,15 @@ ApplicationWindow {
                     onClicked: stackView.push(Qt.resolvedUrl(page))
                 }
             }
+
+
+
         }
-    }
+
+
+
+
+    }*/
 
 
 
