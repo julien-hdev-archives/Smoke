@@ -93,13 +93,11 @@ Item {
             }
         }
 
-        Item {
-
             TableViewColumn {
                 title: "Name"
                 role: "name"
                 width: 200
-                Accessible: parent 
+                
             }
 
             TableViewColumn {
@@ -107,7 +105,6 @@ Item {
                 role: "typeName"
                 width: 200
             }
-        }
     }   
 }
 
