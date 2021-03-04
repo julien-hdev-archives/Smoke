@@ -6,7 +6,7 @@
 #include "timer.hh"
 // CLUST_SIZE must divide GRID_SIZE
 template<int GRID_SIZE, int CLUST_SIZE, int DENSITY_GRID_SIZE>
-struct Simulator: public SimulatorInterface
+struct Simulator2D: public SimulatorInterface
 {
     
     using Grid = std::array<std::array<glm::vec3, GRID_SIZE>, GRID_SIZE>;
@@ -33,6 +33,8 @@ struct Simulator: public SimulatorInterface
     float A = 2.0f;
     float B;
 
+    float viscosity = 1.0f;
+    
     float
     get_density(float x, float y)
     {
@@ -42,13 +44,16 @@ struct Simulator: public SimulatorInterface
         return is_inside_density(i, j)? density[i][j] : 0.0f;
    }
     
-    Simulator() = default;
+    Simulator2D() = default;
 
-    Simulator(float rad, float pA):
+    Simulator2D(float rad, float pA, float visc = 1.0f):
         radius(rad),
         res(2.0f*rad/((float) GRID_SIZE)),
+        density_res(2.0f*rad/((float) DENSITY_GRID_SIZE)),
+        clust_res(2.0f*rad/((float) CLUST_GRID_SIZE)),
         A(pA),
-        B(std::pow(res, dim)/A)
+        B(std::pow(res, dim)/A),
+        viscosity(visc)
     {}
 
     // inserters
@@ -73,6 +78,7 @@ struct Simulator: public SimulatorInterface
         insert_particle(x, y, 0.0f);
     }
 
+    
     float
     grid_to_space(const int i) const
     {
@@ -179,10 +185,12 @@ struct Simulator: public SimulatorInterface
         smart_algo(dt, 1);
 
         clock.log();
+
+        brownian(res/100.0f);
         
 
-//        reflect_exterior_particles();        
-        destroy_exterior_particles();
+        reflect_exterior_particles();        
+        //     destroy_exterior_particles();
         clock.log();
 
         std::cout << "RUN CLOCK: \n";
@@ -247,6 +255,7 @@ struct Simulator: public SimulatorInterface
         }
     }
 
+    // computes the vorticity  of each cell (the parts that makes the smoke spin)
     void
     vortricity(float dt)
     {
@@ -275,6 +284,7 @@ struct Simulator: public SimulatorInterface
         }
     }
 
+    // a naive implementation for comparison purpose
     void
     naive_algorithm(float dt)
     {
@@ -393,6 +403,7 @@ struct Simulator: public SimulatorInterface
 
     }
 
+    // precalculate things and stores it in the cluster grid
     void
     compute_clusters()
     {
@@ -425,7 +436,9 @@ struct Simulator: public SimulatorInterface
         }
     }
 
-    // I approximate the contribution of the distant clusters
+    // I approximate the contribution of the distant clusters so that I can run
+    // the algorithm in O(nb_particles*(nb_clusters + cluster_size))
+    // rather than in O(nb_particles*nb_cells)
     void
     smart_algo(float dt, int clust_radius)
     {
@@ -479,8 +492,25 @@ struct Simulator: public SimulatorInterface
 
             part.vel += u_new*dt;
             part.pos += part.vel*dt;
-                
+            part.vel *= viscosity;
         }
+    }
+
+    // adds brownian movement to the particles
+    // neglictable cost, enhance significantly the result
+    void
+    brownian(float force)
+    {
+        std::random_device rd{};
+        std::mt19937 gen{rd()};
+        std::normal_distribution<> gaussian{0.0f, force};
+
+        for (auto & part: particles)
+        {
+            part.vel[0] += gaussian(gen);
+            part.vel[1] += gaussian(gen);
+        }
+        
     }
     
 };

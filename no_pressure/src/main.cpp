@@ -14,6 +14,8 @@ struct Particle
 {
     glm::vec3 pos;
     glm::vec3 vel;
+    float mass;
+    float heat;
 };
 
 
@@ -30,7 +32,7 @@ main(void)
     std::mt19937 e2{r()};
     
 
-    auto sim = Simulator<256, 8, 512>(1.0f, 2.0f);
+    auto sim = Simulator2D<128, 8, 256>(0.5f, 2.0f, 0.95f);
 
     for (auto i = 0; i < 10000; ++i)
     {
@@ -42,15 +44,17 @@ main(void)
             {
                 glm::vec3(x, y, 0),
                 glm::vec3(vx, vy, 0),
+                0.,
+                0.
             };
         
         sim.insert_particle(part);
     }
 
-    for (auto i = 0; i < 100; ++i)
+    for (auto i = 0; i < 1000; ++i)
     {
         std::cout << "Iteration: " << i << std::endl;
-        sim.run(0.6f);
+        sim.run(0.7f);
         sim.update_densities();
 
         std::ostringstream name;
