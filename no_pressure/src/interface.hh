@@ -1,3 +1,5 @@
+
+// interface used for the rendering
 struct SimulatorInterface
 {
     // returns the density at the given coordinates

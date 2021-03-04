@@ -3,7 +3,7 @@
 #include <fstream>
 
 #include "interface.hh"
-
+#include "timer.hh"
 // CLUST_SIZE must divide GRID_SIZE
 template<int GRID_SIZE, int CLUST_SIZE, int DENSITY_GRID_SIZE>
 struct Simulator: public SimulatorInterface
@@ -165,19 +165,29 @@ struct Simulator: public SimulatorInterface
     void
     run(float dt)
     {
-        // accumulate speeds
+        Timer clock;
         collect_speeds();
-        // intermediate speed;
+        clock.log();
         intermediate_speed(dt);
-        // vortricity
+        clock.log();
         vortricity(dt);
-        // algorithm
+
+        clock.log();
+ 
+        // algorithm (takes the totality of the computational time
         //naive_algorithm(dt);
         smart_algo(dt, 1);
+
+        clock.log();
         
-        reflect_exterior_particles();
+
+//        reflect_exterior_particles();        
+        destroy_exterior_particles();
+        clock.log();
+
+        std::cout << "RUN CLOCK: \n";
+        clock.print();
         
-//        destroy_exterior_particles();
     }
 
     void
@@ -205,8 +215,6 @@ struct Simulator: public SimulatorInterface
     void
     intermediate_speed(float dt)
     {
-
-        const auto zero = glm::vec3(0.0f);
 
         // intermediate speed calculation
         // it is the sum of the speed of the cell in the opposite direction
@@ -441,11 +449,11 @@ struct Simulator: public SimulatorInterface
                         {
                             for (auto j = cj*CLUST_SIZE; j < (cj+1)*CLUST_SIZE; ++j)
                             {
-                                auto pos_i = glm::vec3(grid_to_space(i),
+                                const auto pos_i = glm::vec3(grid_to_space(i),
                                                        grid_to_space(j), 0.0f);
-                                auto translation = part.pos - pos_i;
-                                auto dist2 = std::max(res*res, glm::dot(translation, translation));
-                                auto dist_d = std::pow(dist2, ((float) dim) /2.0f);
+                                const auto translation = part.pos - pos_i;
+                                const auto dist2 = std::max(res*res, glm::dot(translation, translation));
+                                const auto dist_d = std::pow(dist2, ((float) dim) /2.0f);
                                 sum += glm::cross(inter_vel_grid[i][j], translation) / dist_d;
 
                             }
@@ -458,8 +466,8 @@ struct Simulator: public SimulatorInterface
                         const auto & s2 = cluster_grid[ci][cj][1];
                         const auto & xref = cluster_grid[ci][cj][2];
                         const auto translation = part.pos - xref;
-                        auto dist2 = std::max(res*res, glm::dot(translation, translation));
-                        auto dist_d = std::pow(dist2, ((float) dim) / 2.0f);
+                        const auto dist2 = std::max(res*res, glm::dot(translation, translation));
+                        const auto dist_d = std::pow(dist2, ((float) dim) / 2.0f);
 
                         sum += (glm::cross(s1, part.pos) - s2) / dist_d;
 

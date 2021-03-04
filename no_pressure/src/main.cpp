@@ -30,9 +30,9 @@ main(void)
     std::mt19937 e2{r()};
     
 
-    auto sim = Simulator<128, 8, 256>(1.0f, 2.0f);
+    auto sim = Simulator<256, 8, 512>(1.0f, 2.0f);
 
-    for (auto i = 0; i < 1000; ++i)
+    for (auto i = 0; i < 10000; ++i)
     {
         float vx = uniform_dist(e1)*0.001;
         float vy = uniform_dist(e1)*0.001;
@@ -50,7 +50,7 @@ main(void)
     for (auto i = 0; i < 100; ++i)
     {
         std::cout << "Iteration: " << i << std::endl;
-        sim.run(0.5f);
+        sim.run(0.6f);
         sim.update_densities();
 
         std::ostringstream name;
