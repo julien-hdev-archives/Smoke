@@ -1,7 +1,6 @@
 #pragma once
 
 #include "UI/Attribute/AttributeListModel.hpp"
-#include "UI/Attribute/FloatAttribute.hpp"
 
 #include <QObject>
 
