@@ -24,7 +24,8 @@ class Attribute : public QObject
     /// the attribute value corresponds.
     enum Type
     {
-        Float
+        Float,
+        Int
     };
     Q_ENUM(Type);
 
