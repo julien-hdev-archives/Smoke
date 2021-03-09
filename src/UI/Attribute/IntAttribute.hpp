@@ -37,10 +37,8 @@ class IntAttribute : public Attribute
     void
     setValue(const QVariant &value) override
     {
-        int newValue = value.toInt();
-        if (newValue == value) return;
-
-        _value = QVariant(newValue);
+        if (_value.toInt() == value.toInt()) return;
+        _value = value;
         Q_EMIT valueChanged();
     }
 
