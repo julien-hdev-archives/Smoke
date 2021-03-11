@@ -4,13 +4,13 @@
 #include "UI/Tree/MyTreeNode.hpp"
 #include "UI/Tree/MyTreeModel.hpp"
 
-#include <QSurfaceFormat>
 #include <QtGlobal>
 #include <QtQml>
 #include <QQuickStyle>
 #include <QPalette>
 #include <QQmlEngine>
 #include <QIcon>
+#include "Simulation/glwrappers.hpp"
 
 #include "Utility/Time.hpp"
 
@@ -33,15 +33,7 @@ App::App(int &argc, char **argv) : QGuiApplication(argc, argv)
 void
 App::setupOpenGLContext() const
 {
-    QSurfaceFormat format;
-
-    format.setMajorVersion(4);
-    format.setMinorVersion(3);
-    format.setProfile(QSurfaceFormat::CoreProfile);
-    format.setSamples(1);
-    format.setSwapInterval(1);
-
-    QSurfaceFormat::setDefaultFormat(format);
+    // nothing to do
 }
 
 void

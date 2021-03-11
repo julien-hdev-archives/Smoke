@@ -3,6 +3,7 @@
 #include "Camera/CameraInfos.hpp"
 #include "SdfRenderer.hpp"
 #include "SdfRendererProperties.hpp"
+#include "Simulation/Simulation.hpp"
 
 #include <QtQuick/QQuickFramebufferObject>
 
@@ -23,6 +24,7 @@ class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer
   private:
     SdfRenderer _sdfRenderer;
     SdfRenderer_Params _sdfRendererParams;
+    Simulation _simulation;
     CameraInfos _cameraInfos;
     QQuickWindow &_window;
 };
