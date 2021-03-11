@@ -16,3 +16,4 @@ This is a C++ project made thanks to Qt Quick 2 and OpenGL.
 - Jules FOUCHY
 - Julien HAUDEGOND
 - Antoine LIBERT
+- Clément CHOMICKI
