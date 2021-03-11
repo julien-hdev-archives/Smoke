@@ -8,8 +8,10 @@ class Simulation
     Simulation();
     ~Simulation() = default;
 
-    void compute();
+    void update();
 
   private:
     ComputeShader _computeShader;
+    SSBO _ssboIN;
+    SSBO _ssboOUT;
 };
