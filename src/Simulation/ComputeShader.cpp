@@ -14,7 +14,7 @@ void
 SSBO::initialize(int binding_index)
 {
     _qtBuffer.create();
-    _qtBuffer.setUsagePattern(QOpenGLBuffer::DynamicCopy);
+    _qtBuffer.setUsagePattern(QOpenGLBuffer::StreamRead);
     gl()->glBindBufferBase(GL_SHADER_STORAGE_BUFFER, binding_index,
                            _qtBuffer.bufferId());
 }
