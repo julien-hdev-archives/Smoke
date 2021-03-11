@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Camera/CameraInfos.hpp"
-#include "SdfRenderer.hpp"
+#include "SdfRenderer2D.hpp"
+#include "SdfRenderer3D.hpp"
 #include "SdfRendererProperties.hpp"
 #include "Simulation/Simulation.hpp"
 
@@ -22,6 +23,7 @@ class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer
     createFramebufferObject(const QSize &size) override;
 
   private:
+    SdfRenderer2D _sdfRenderer2D;
     SdfRenderer _sdfRenderer;
     SdfRenderer_Params _sdfRendererParams;
     Simulation _simulation;

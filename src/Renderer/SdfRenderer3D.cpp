@@ -1,4 +1,4 @@
-#include "SdfRenderer.hpp"
+#include "SdfRenderer3D.hpp"
 
 #include "Camera/CameraInfos.hpp"
 #include "SdfRendererProperties.hpp"

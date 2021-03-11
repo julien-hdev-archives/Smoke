@@ -25,7 +25,8 @@ MyQuickFBORenderer::render()
         = QOpenGLContext::currentContext()->functions();
     functions->glDisable(GL_DEPTH_TEST);
 
-    _sdfRenderer.render(_cameraInfos, _sdfRendererParams);
+    _sdfRenderer2D.render();
+    //_sdfRenderer.render(_cameraInfos, _sdfRendererParams);
     update();
     _window.resetOpenGLState();
 }
