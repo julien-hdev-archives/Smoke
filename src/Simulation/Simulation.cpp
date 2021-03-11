@@ -2,7 +2,7 @@
 
 Simulation::Simulation()
 {
-    _computeShader.setup("shaders/simulation/compute_shader.cs.glsl");
+    _computeShader.initialize("shaders/simulation/compute_shader.cs.glsl");
     compute();
 }
 
@@ -18,23 +18,18 @@ Simulation::compute()
         output[i] = -i;
     }
 
-    ShaderBuffer input_buffer, output_buffer;
+    SSBO input_buffer, output_buffer;
 
-    input_buffer.setup();
-    output_buffer.setup();
+    input_buffer.initialize(0);
+    output_buffer.initialize(1);
 
-    input_buffer.allocate(input, sizeof(input));
-    output_buffer.allocate(output, sizeof(output));
-
-    // Bind buffers to shader
-    input_buffer.bind_for_shader(0);
-    output_buffer.bind_for_shader(1);
+    input_buffer.uploadData(input, sizeof(input));
+    output_buffer.uploadData(output, sizeof(output));
 
     // Compute
-    _computeShader.begin();
-    _computeShader.program().setUniformValue("coeff", 0.5f); // set uniforms
+    _computeShader->bind();
+    _computeShader->setUniformValue("coeff", 0.5f); // set uniforms
     _computeShader.compute(N);
-    _computeShader.end();
 
     // Download input and resulted buffers to CPU
     // Clear to be sure we really read them
@@ -44,8 +39,8 @@ Simulation::compute()
         output[i] = 0;
     }
 
-    input_buffer.read_to_cpu(input, sizeof(input));
-    output_buffer.read_to_cpu(output, sizeof(output));
+    input_buffer.downloadData(input, sizeof(input));
+    output_buffer.downloadData(output, sizeof(output));
 
     qDebug() << "Buffers: ";
     for (int i = 0; i < N; i++)
