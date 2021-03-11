@@ -1,4 +1,4 @@
-#include "glwrappers.hpp"
+#include "ComputeShader.hpp"
 
 #include <QOpenGLFunctions>
 #include <QOpenGLFunctions_4_3_Core>

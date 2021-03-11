@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glwrappers.hpp"
+#include "ComputeShader.hpp"
 
 class Simulation
 {
