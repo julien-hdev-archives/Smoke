@@ -9,7 +9,7 @@ class SdfRenderer2D
     SdfRenderer2D();
     ~SdfRenderer2D() = default;
 
-    void render();
+    void render(int gridSize);
 
   private:
     FullscreenShader _shader;

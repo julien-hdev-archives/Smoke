@@ -5,22 +5,23 @@ Simulation::Simulation()
     _computeShader.initialize("shaders/simulation/compute_shader.cs.glsl");
     _ssboIN.initialize(0);
     _ssboOUT.initialize(1);
-    const int N = 23;
-    float input[N];
-    for (int i = 0; i < N; i++)
+    std::vector<float> input(_gridSize * _gridSize);
+    for (int x = 0; x < _gridSize; x++)
     {
-        input[i] = i;
+        for (int y = 0; y < _gridSize; y++)
+        {
+            input[x + y * _gridSize] = (x + y) / 2.f / _gridSize;
+        }
     }
 
-    _ssboIN.uploadData(input, sizeof(input));
-    _ssboOUT.uploadData(nullptr, sizeof(input));
+    _ssboIN.uploadData(input.data(), input.size() * sizeof(float));
+    _ssboOUT.uploadData(nullptr,     input.size() * sizeof(float));
 }
 
 void
 Simulation::update()
 {
-    const int N = 23;
     _computeShader->bind();
     _computeShader->setUniformValue("coeff", 0.5f); // set uniforms
-    _computeShader.compute(N);
+    _computeShader.compute(_gridSize * _gridSize);
 }

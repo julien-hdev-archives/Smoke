@@ -1,9 +1,6 @@
 #version 430
 
-uniform int NumberOfComputations;
-
-//Example of uniform parameter 
-uniform float coeff=1;    
+uniform int NumberOfComputations; 
 
 layout(std430, binding = 0) buffer BufferIN 
 {
@@ -19,6 +16,6 @@ void main()
 {
     uint id = gl_GlobalInvocationID.x;
     if (id < NumberOfComputations) {
-        bufferOUT[id] = bufferIN[id] + id*coeff;
+        bufferIN[id] = fract(bufferIN[id] + 0.005);
     }
 }
