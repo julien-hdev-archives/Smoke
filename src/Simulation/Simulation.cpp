@@ -2,9 +2,8 @@
 
 Simulation::Simulation()
 {
-    _computeShader.initialize("shaders/simulation/compute_shader.cs.glsl");
-    _ssboIN.initialize(0);
-    _ssboOUT.initialize(1);
+    _computeShader.initialize("shaders/simulation/2D.cs.glsl");
+    _ssbo.initialize(0);
     std::vector<float> input(_gridSize * _gridSize);
     for (int x = 0; x < _gridSize; x++)
     {
@@ -14,14 +13,12 @@ Simulation::Simulation()
         }
     }
 
-    _ssboIN.uploadData(input.data(), input.size() * sizeof(float));
-    _ssboOUT.uploadData(nullptr,     input.size() * sizeof(float));
+    _ssbo.uploadData(input.data(), input.size() * sizeof(float));
 }
 
 void
 Simulation::update()
 {
     _computeShader->bind();
-    _computeShader->setUniformValue("coeff", 0.5f); // set uniforms
     _computeShader.compute(_gridSize * _gridSize);
 }

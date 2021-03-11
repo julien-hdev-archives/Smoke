@@ -13,7 +13,6 @@ class Simulation
 
   private:
     ComputeShader _computeShader;
-    SSBO _ssboIN;
-    SSBO _ssboOUT;
+    SSBO _ssbo;
     int _gridSize = 100;
 };

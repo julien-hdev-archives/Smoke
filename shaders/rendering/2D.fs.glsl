@@ -1,13 +1,14 @@
 #version 430
 
-in vec2 vUV;
 uniform float u_AspectRatio;
 uniform int u_GridSize;
+
+in vec2 vUV;
 out vec4 fragColor;
 
 layout(std430, binding = 0) buffer Buffer
 {
-    float densities[];
+    float density[];
 };
 
 void main()
@@ -17,6 +18,6 @@ void main()
 
     ivec2 idx = ivec2(floor(uv * u_GridSize));
 
-    vec3 col = vec3(densities[idx.x + idx.y * u_GridSize]);
+    vec3 col = vec3(density[idx.x + idx.y * u_GridSize]);
     fragColor = vec4(col, 1.);
 }
