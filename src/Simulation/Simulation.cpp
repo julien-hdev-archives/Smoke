@@ -20,5 +20,6 @@ void
 Simulation::update()
 {
     _computeShader->bind();
+    _computeShader->setUniformValue("GridSize", _gridSize);
     _computeShader.compute(_gridSize * _gridSize);
 }
