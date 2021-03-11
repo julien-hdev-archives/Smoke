@@ -44,8 +44,9 @@ ComputeShader::initialize(QString shader_file)
 }
 
 void
-ComputeShader::compute(int NX, int NY, int NZ)
+ComputeShader::compute(GLuint nbComputations)
 {
-    gl()->glDispatchCompute(NX, NY, NZ);
+    _qtProgram.setUniformValue("NumberOfComputations", nbComputations);
+    gl()->glDispatchCompute((nbComputations - 1) / 256 + 1, 1, 1);
     gl()->glFinish();
 }

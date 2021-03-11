@@ -17,7 +17,7 @@ class ComputeShader {
 public:
     void initialize(QString shader_file);
     inline QOpenGLShaderProgram *operator->() { return &_qtProgram; }
-    void compute(int NX = 256, int NY = 1, int NZ = 1);
+    void compute(GLuint nbComputations);
 
 protected:
     QOpenGLShaderProgram _qtProgram;
