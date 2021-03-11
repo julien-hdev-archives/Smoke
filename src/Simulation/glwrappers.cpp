@@ -1,12 +1,10 @@
 #include "glwrappers.hpp"
 
-#include <QtGui/QOpenGLContext>
-#include <QOpenGLExtraFunctions>
-#include <QDebug>
-
+#include <QOpenGLFunctions>
+#include <QOpenGLFunctions_4_3_Core>
 
 //---------------------------------------------------------------------
-QOpenGLFunctions_4_3_Core *GlCommon::gl() {
+static QOpenGLFunctions_4_3_Core *gl() {
     return QOpenGLContext::currentContext()
                            ->versionFunctions<QOpenGLFunctions_4_3_Core>();
     ;

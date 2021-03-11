@@ -4,13 +4,13 @@
 #include "UI/Tree/MyTreeNode.hpp"
 #include "UI/Tree/MyTreeModel.hpp"
 
+#include <QSurfaceFormat>
 #include <QtGlobal>
 #include <QtQml>
 #include <QQuickStyle>
 #include <QPalette>
 #include <QQmlEngine>
 #include <QIcon>
-#include "Simulation/glwrappers.hpp"
 
 #include "Utility/Time.hpp"
 
