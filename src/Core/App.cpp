@@ -33,7 +33,15 @@ App::App(int &argc, char **argv) : QGuiApplication(argc, argv)
 void
 App::setupOpenGLContext() const
 {
-    // nothing to do
+    QSurfaceFormat format;
+
+    format.setMajorVersion(4);
+    format.setMinorVersion(3);
+    format.setProfile(QSurfaceFormat::CoreProfile);
+    format.setSamples(1);
+    format.setSwapInterval(1);
+
+    QSurfaceFormat::setDefaultFormat(format);
 }
 
 void

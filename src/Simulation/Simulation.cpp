@@ -1,12 +1,15 @@
 #include "Simulation.hpp"
 
 Simulation::Simulation()
-{	
-	_context.setup();
-    _computeShader.setup("shaders/simulation/compute_shader.cs.glsl",
-                         &_context);
+{
+    _computeShader.setup("shaders/simulation/compute_shader.cs.glsl");
+    compute();
+}
 
-        const int N = 23;
+void
+Simulation::compute()
+{
+    const int N = 23;
     float input[N];
     float output[N];
     for (int i = 0; i < N; i++)
@@ -17,8 +20,8 @@ Simulation::Simulation()
 
     ShaderBuffer input_buffer, output_buffer;
 
-    input_buffer.setup(&_context);
-    output_buffer.setup(&_context);
+    input_buffer.setup();
+    output_buffer.setup();
 
     input_buffer.allocate(input, sizeof(input));
     output_buffer.allocate(output, sizeof(output));
@@ -50,4 +53,3 @@ Simulation::Simulation()
         qDebug() << "  " << input[i] << " " << output[i];
     }
 }
-

@@ -20,23 +20,14 @@ class GlContext;
 //It's inherited by ShaderBuffer and ComputeShader
 //---------------------------------------------------------------------
 class GlCommon {
-public:
-
 protected:
-    void setup_surface(GlContext *surface);
-    GlContext *surface_ = nullptr;
-
-    void gl_assert(QString message); //Check openGL error
-    void xassert(bool condition, QString message); //Check Qt wrapper error
-    void activate_context();
-
     QOpenGLFunctions_4_3_Core *gl();
 };
 
 //Class for warping GPU buffer, will it with values from CPU and load to CPU after computations
 class ShaderBuffer: public GlCommon {
 public:
-    void setup(GlContext *surface);
+    void setup();
     void allocate(void *data, int size_bytes);
     void read_to_cpu(void *data, int size_bytes);
     void clear();
@@ -66,7 +57,7 @@ protected:
 //---------------------------------------------------------------------
 class ComputeShader: public GlCommon {
 public:
-    void setup(QString shader_file, GlContext *surface);
+    void setup(QString shader_file);
 
     //Call this to set up uniforms
     void begin();
@@ -83,39 +74,6 @@ public:
 
 protected:
     QOpenGLShaderProgram program_;
-};
-
-//---------------------------------------------------------------------
-//GlContext
-//Surface for maintaining OpenGL context
-//Compute shaders and buffers will use it for enabling OpenGL context at operations
-//It's subclass of QOffscreenSurface, it's required to have such thing by Qt work with OpenGL
-//(Also can use QWindow, but in our case it's not needed, we want non-graphical computations)
-//Note: QOffscreenSurface can work in non-main thread,
-//but its "create" must be called from main thread
-//---------------------------------------------------------------------
-class GlContext: public QOffscreenSurface, protected QOpenGLFunctions
-{
-    Q_OBJECT
-public:
-    explicit GlContext();
-    ~GlContext();
-
-    //Initialize OpenGL context and load shader, must be called before computing
-    void setup();
-
-    //Switch to OpenGL context - required before most operations
-    void activate_context();
-
-    void gl_assert(QString message); //Check openGL error
-    void xassert(bool condition, QString message); //Check Qt wrapper error
-
-    QOpenGLFunctions_4_3_Core *gl() { return gl43; }
-private:
-    //OpenGL context
-    QOpenGLContext *m_context = nullptr;        //will be deleted automatically
-    //OpenGL extra functions
-    QOpenGLFunctions_4_3_Core *gl43 = nullptr;  //should't delete this!
 };
 
 #endif // COMPUTESURFACE_H

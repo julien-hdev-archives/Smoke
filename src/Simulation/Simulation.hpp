@@ -8,7 +8,8 @@ class Simulation
     Simulation();
     ~Simulation() = default;
 
+    void compute();
+
   private:
-    GlContext _context;
     ComputeShader _computeShader;
 };
