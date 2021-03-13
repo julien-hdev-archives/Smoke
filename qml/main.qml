@@ -69,6 +69,7 @@ ApplicationWindow {
                     CButtonIcon { width: 50; height: 40; icon : Icons.wb_sunny }
                 }
 
+                /*
                 ListView {
                         anchors.right : parent.right
                         anchors.rightMargin : 30
@@ -85,7 +86,11 @@ ApplicationWindow {
                                 object.value = value
                             }
                         }
-                }
+                }*/
+
+
+                
+
             }
 
             MyQuickFBO {
@@ -151,12 +156,18 @@ ApplicationWindow {
                     Layout.maximumHeight : 35 
                     text : "Components"
                 }
-
+     
                 Rectangle {
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         Layout.preferredHeight : 55 // %
                         color : Palette.window
+
+                        ListView {
+                            anchors.fill: parent
+                            model: fbo.sdfRendererProperties.attributes
+                            delegate: AttributeLoader { attribute : object }
+                        }
                     }                
                 }
             }
