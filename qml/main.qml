@@ -111,13 +111,15 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            z: 2
             id : controllers
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredWidth : 35 // %
-            spacing : 1
+            spacing : 0
 
             ColumnLayout {
+                z: 2
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight : 35 // %
@@ -149,6 +151,7 @@ ApplicationWindow {
                 spacing : 1
 
                 HeaderSection { 
+                    z: 2
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.preferredHeight : 30 
@@ -158,10 +161,12 @@ ApplicationWindow {
                 }
      
                 Rectangle {
+                            
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         Layout.preferredHeight : 55 // %
                         color : Palette.window
+                        z: 1
 
                         ListView {
                             anchors.fill: parent

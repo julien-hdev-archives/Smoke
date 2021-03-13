@@ -16,21 +16,25 @@ Item {
             switch(attribute.type)
             {
                 case 0: return slider 
-                case 1: return slider 
+                /*case 1: return slider */
             }
         }
 
     }
 
     Component {
-
+        
         id : slider  
         Rectangle {
+
         anchors.fill : parent
             RowLayout {
                 id : label
                 Text { 
-                    width: 180; height: 100
+                    
+                    width: parent.width; height: 45
+                    Layout.leftMargin : 10
+                    Layout.topMargin : 10
                     text : attribute.label
                     color : Palette.windowText
                     horizontalAlignment: Text.AlignHLeft
@@ -42,8 +46,10 @@ Item {
 
             RowLayout {
                 anchors.top : label.bottom
-                width: 180; height: 30
-                Slider {  
+
+                width: 180; height: 20
+                Slider {
+                    Layout.leftMargin : 10
                     Layout.alignment: Qt.AlignVCenter
                     id : slide
                     value: attribute.value
@@ -55,8 +61,14 @@ Item {
                     }
                 }
                 Text { 
-                    Layout.alignment: Qt.AlignVCenter
-                    text : attribute.value 
+                    Layout.leftMargin : 2
+                    width: 180; height: 60
+                    text : attribute.value
+                    color : Palette.toolTipText
+                    horizontalAlignment: Text.AlignHLeft
+                    verticalAlignment: Text.AlignVCenter
+                    font.pixelSize: 14
+                    font.family: Fonts.workSans.semiBold.name
                 }
             }
         }
