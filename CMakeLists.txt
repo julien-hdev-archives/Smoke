@@ -15,7 +15,7 @@ set(CMAKE_AUTOMOC ON)
 # set(CMAKE_AUTOUIC ON)
 # set(CMAKE_AUTORCC ON)
 
-find_package(Qt5 COMPONENTS Core Quick QuickControls2 REQUIRED)
+find_package(Qt5 COMPONENTS Core Quick QuickControls2 Widgets REQUIRED)
 
 file(GLOB_RECURSE SRC_FILES src/*)
 file(GLOB_RECURSE VENDOR_FILES vendor/enTT/include/*)
@@ -69,7 +69,7 @@ set_target_properties(
 target_compile_definitions(${PROJECT_NAME}
   PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 target_link_libraries(${PROJECT_NAME}
-  PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2)
+  PRIVATE Qt5::Core Qt5::Quick Qt5::QuickControls2 Qt5::Widgets)
 
 # Copy qml folder after a build
 add_custom_command(
