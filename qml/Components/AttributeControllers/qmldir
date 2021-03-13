@@ -1,0 +1,4 @@
+module AttributeControllers
+
+AttributeSliderFloat 1.0 AttributeSliderFloat.qml
+AttributeSliderInt 1.0 AttributeSliderInt.qml
