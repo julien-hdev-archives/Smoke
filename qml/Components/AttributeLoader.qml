@@ -16,18 +16,13 @@ Item {
         sourceComponent: {
             switch(attribute.type)
             {
-                case 0: return slider 
-                /*case 1: return slider */
+                case 0: return sliderFloat
+                case 1: return sliderInt 
             }
         }
 
     }
 
-    Component {
-        id : slider  
-        AttributeSliderFloat {
-            attr : attribute
-        }
-
-      }
+    Component { id : sliderFloat; AttributeSliderFloat {attr : attribute}}
+    Component { id : sliderInt; AttributeSliderInt {attr : attribute}}
 }

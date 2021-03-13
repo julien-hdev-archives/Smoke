@@ -36,8 +36,8 @@ Item {
                     id : slide
                     value: attr.value
                     from : 0
-                    to : 1
-                    stepSize : 0.01
+                    to : 10
+                    stepSize : 1
                     onMoved: {
                         attr.value = value
                     }
