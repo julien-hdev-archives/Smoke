@@ -35,9 +35,9 @@ Item {
                     Layout.alignment: Qt.AlignVCenter
                     id : slide
                     value: attr.value
-                    from : 0
-                    to : 10
-                    stepSize : 1
+                    from : attr.from
+                    to : attr.to
+                    stepSize : attr.step
                     onMoved: {
                         attr.value = value
                     }
@@ -45,7 +45,7 @@ Item {
                 Text { 
                     Layout.leftMargin : 2
                     width: 180; height: 60
-                    text : attr.value
+                    text : Math.round(attr.value * 100) / 100
                     color : Palette.toolTipText
                     horizontalAlignment: Text.AlignHLeft
                     verticalAlignment: Text.AlignVCenter
