@@ -26,7 +26,8 @@ MyQuickFBORenderer::render()
     functions->glDisable(GL_DEPTH_TEST);
 
     //_sdfRenderer.render(_cameraInfos, _sdfRendererParams);
-    _sdfRenderer2D.render(_simulation.gridSize());
+    //_sdfRenderer2D.render(_simulation.gridSize());
+    _imageRenderer.render();
     _simulation.update();
     update();
     _window.resetOpenGLState();
