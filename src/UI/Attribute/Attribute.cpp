@@ -11,8 +11,7 @@ Attribute::Attribute(const Type type, const QString &name,
         auto attributes = qobject_cast<AttributeListModel *>(parent);
         if (!attributes)
         {
-            throw new std::exception(
-                "Attribute's parent must be an AttributeListModel instance.");
+            throw "Attribute's parent must be an AttributeListModel instance.";
         }
 
         connect(this, &Attribute::valueChanged, attributes,

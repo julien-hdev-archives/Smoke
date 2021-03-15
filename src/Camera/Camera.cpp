@@ -1,7 +1,8 @@
 #include "Camera.hpp"
 #include "CameraState_Idle.hpp"
-
 #include "Utility/Math.hpp"
+
+#include <cmath>
 
 Camera::Camera()
 {
@@ -13,12 +14,12 @@ void
 Camera::onTransformChanged()
 {
     QVector3D posRelToLookAt
-        = QVector3D(cos(m_angleUp) * cos(m_angleGround), sin(m_angleUp),
-                    cos(m_angleUp) * sin(m_angleGround))
+        = QVector3D(std::cos(m_angleUp) * std::cos(m_angleGround), std::sin(m_angleUp),
+                    std::cos(m_angleUp) * std::sin(m_angleGround))
           * m_distToLookAt;
     m_viewMatrix.setToIdentity();
     m_viewMatrix.lookAt(posRelToLookAt + m_lookAt, m_lookAt,
-                        QVector3D(0.0f, Math::sign(cos(m_angleUp)), 0.0f));
+                        QVector3D(0.0f, Math::sign(std::cos(m_angleUp)), 0.0f));
     m_transformMatrix = m_viewMatrix.inverted();
 }
 
