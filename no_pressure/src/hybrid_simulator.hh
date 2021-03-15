@@ -46,7 +46,12 @@ struct Simulator2D: public SimulatorInterface
     
     Simulator2D() = default;
 
-    Simulator2D(float rad, float pA, float visc = 1.0f):
+    /*
+      rad: radius of the simulation (the size in the particle space)
+      pA: some constant that should be 2.0
+      visc: how fast particles loose speed (must be within [0, 1])
+     */
+    Simulator2D(float rad = 1.0f, float pA = 2.0f, float visc = 1.0f):
         radius(rad),
         res(2.0f*rad/((float) GRID_SIZE)),
         density_res(2.0f*rad/((float) DENSITY_GRID_SIZE)),
@@ -378,30 +383,6 @@ struct Simulator2D: public SimulatorInterface
         }
     }
 
-    void
-    save_image(const std::string & name,
-               const int min_val,
-               const int max_val)
-    {
-        std::ofstream img(name);
-        img << "P2" << std::endl;
-        img << DENSITY_GRID_SIZE << " " << DENSITY_GRID_SIZE << std::endl;
-        img << max_val << std::endl;
-
-        for (auto i = 0; i < DENSITY_GRID_SIZE; ++i)
-        {
-            for (auto j = 0; j < DENSITY_GRID_SIZE; ++j)
-            {
-                auto v = density[i][j];
-                if (v > 0 && v < min_val)
-                    v = min_val;
-                v = std::min(max_val, v);
-                img << v << " ";
-            }
-            img << std::endl;
-        }
-
-    }
 
     // precalculate things and stores it in the cluster grid
     void
@@ -511,6 +492,43 @@ struct Simulator2D: public SimulatorInterface
             part.vel[1] += gaussian(gen);
         }
         
+    }
+
+    const int *
+    density_begin()
+    {
+        return &density[0][0];
+    }
+    
+    const int *
+    density_end()
+    {
+        return DENSITY_GRID_SIZE*DENSITY_GRID_SIZE + &density[0][0];
+    }
+
+    
+    
+    void
+    save_image(const std::string & name,
+               const int min_val,
+               const int max_val)
+    {
+        std::ofstream img(name);
+        img << "P2" << std::endl;
+        img << DENSITY_GRID_SIZE << " " << DENSITY_GRID_SIZE << std::endl;
+        img << max_val << std::endl;
+
+        for (auto p = density_begin(); p != density_end(); ++p)
+        {
+            auto v = *p;
+            if (v > 0 && v < min_val)
+                v = min_val;
+            v = std::min(max_val, v);
+            img << v << " ";
+        }
+        img << std::endl;
+        
+
     }
     
 };
