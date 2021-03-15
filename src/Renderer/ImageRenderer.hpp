@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FullscreenShader.hpp"
+#include <QOpenGLTexture>
 
 class ImageRenderer
 {
@@ -8,8 +9,9 @@ class ImageRenderer
     ImageRenderer();
     ~ImageRenderer() = default;
 
-    void render();
+    void render(int width, int height, const unsigned char *data);
 
   private:
     FullscreenShader _shader;
+    QOpenGLTexture _texture;
 };

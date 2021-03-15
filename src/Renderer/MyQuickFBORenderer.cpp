@@ -27,7 +27,16 @@ MyQuickFBORenderer::render()
 
     //_sdfRenderer.render(_cameraInfos, _sdfRendererParams);
     //_sdfRenderer2D.render(_simulation.gridSize());
-    _imageRenderer.render();
+    
+    unsigned char data[] = {
+        0, 255, 255, 255,   // Pixel at (0, 0)
+        255, 255, 255, 255, // Pixel at (1, 0)
+        255, 255, 0, 255,   // Pixel at (2, 0)
+        255, 255, 255, 255, // Pixel at (0, 1)
+        255, 255, 255, 255, // Pixel at (1, 1)
+        255, 255, 255, 255  // Pixel at (2, 1)
+    }; 
+    _imageRenderer.render(3, 2, data);
     _simulation.update();
     update();
     _window.resetOpenGLState();
