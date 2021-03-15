@@ -9,6 +9,15 @@
 
 #include <QtQuick/QQuickFramebufferObject>
 
+#include "hybrid_simulator.hpp"
+
+
+const int GRID_SIZE = 64;
+const int CLUST_SIZE = 8;
+const int DENSITY_GRID_SIZE = 256;
+
+using Simulator = Simulator2D<GRID_SIZE, CLUST_SIZE, DENSITY_GRID_SIZE>;
+
 class QOpenGLFramebufferObject;
 
 class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer
@@ -23,6 +32,8 @@ class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer
     QOpenGLFramebufferObject *
     createFramebufferObject(const QSize &size) override;
 
+    Simulator simulator = Simulator(1.0f, 2.0f, 0.9f);
+    
   private:
     ImageRenderer _imageRenderer;
     SdfRenderer2D _sdfRenderer2D;
