@@ -20,7 +20,7 @@ class AttributeListModel : public ObjectListModel
     /// \brief Find an Attribute by its name.
     /// \param name Name of the Attribute.
     /// \returns Attribute or nullptr.
-    const Attribute *find(const QString &name) const;
+    Attribute *find(const QString &name) const;
 
   public:
     Q_SIGNAL void valueChanged();

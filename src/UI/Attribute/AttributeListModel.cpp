@@ -28,7 +28,7 @@ AttributeListModel::append(Attribute *attr)
     ObjectListModel::append(attr);
 }
 
-const Attribute *
+Attribute *
 AttributeListModel::find(const QString &name) const
 {
     for (const auto obj : _data)
