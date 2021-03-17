@@ -68,24 +68,6 @@ ApplicationWindow {
                     CButtonIcon { width: 50; height: 40; icon : Icons.lightbulb }
                     CButtonIcon { width: 50; height: 40; icon : Icons.wb_sunny }
                 }
-
-                ListView {
-                        anchors.right : parent.right
-                        anchors.rightMargin : 30
-
-                        width: 180; height: 200
-                        model: fbo.sdfRendererProperties.attributes
-
-                        delegate: Slider {
-                            value: object.value
-                            from : 0
-                            to : 1
-                            stepSize : 0.01
-                            onMoved: {
-                                object.value = value
-                            }
-                        }
-                }
             }
 
             MyQuickFBO {
@@ -150,6 +132,26 @@ ApplicationWindow {
                     Layout.minimumHeight : 25 
                     Layout.maximumHeight : 35 
                     text : "Components"
+                }
+
+                ListView {
+                       
+                        anchors.rightMargin : 30
+
+                        width: 180; height: 200
+                        model: fbo.simulatorProperties.attributes
+
+                        delegate: Slider {
+                            width: 180; height: 30
+                            value: object.value
+                            from : object.from
+                            to : object.to
+                            stepSize : object.step
+                            onMoved: {
+                                object.value = value
+                            }
+                        }
+                        
                 }
 
                 Rectangle {

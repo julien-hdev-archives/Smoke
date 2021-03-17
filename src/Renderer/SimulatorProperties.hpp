@@ -8,7 +8,9 @@
 struct Simulator_Params
 {
     float haveToReset = 0.f;
+    float radius = 1.0f;
     float viscosity = 0.4f;
+    float pA = 2.0f;
 };
 
 class SimulatorProperties : public QObject

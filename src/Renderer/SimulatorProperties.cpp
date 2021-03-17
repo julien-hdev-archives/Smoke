@@ -18,9 +18,18 @@ SimulatorProperties::SimulatorProperties(QObject *parent)
     _attributes->append(new FloatAttribute("haveToReset", "Have To Reset",
                                            initialParams.haveToReset, 0.f, 1.f,
                                            1.f, _attributes));
+    
+    _attributes->append(new FloatAttribute("radius", "Radius",
+                                           initialParams.radius, 0.1f, 3.0f,
+                                           0.1f, _attributes));
+
     _attributes->append(new FloatAttribute("viscosity", "Viscosity",
                                            initialParams.viscosity, 0.1f, 0.5f,
                                            0.01f, _attributes));
+
+    _attributes->append(new FloatAttribute("pA", "pA",
+                                           initialParams.pA, 0.1f, 3.0f,
+                                           0.1f, _attributes));
 }
 
 const Simulator_Params
@@ -28,9 +37,10 @@ SimulatorProperties::simulator_Params() const
 {
     Simulator_Params params;
 
-    params.haveToReset
-        = _attributes->find("haveToReset")->getValue().toFloat();
+    params.haveToReset = _attributes->find("haveToReset")->getValue().toFloat();
+    params.viscosity = _attributes->find("radius")->getValue().toFloat();
     params.viscosity = _attributes->find("viscosity")->getValue().toFloat();
+    params.viscosity = _attributes->find("pA")->getValue().toFloat();
 
     return params;
 }

@@ -77,14 +77,11 @@ struct Simulator2D: public SimulatorInterface
     void
     update_param(Simulator_Params params)
     {
-        float rad = 1.0f;
-        float pA = 2.0f;
-
-        radius = rad;
-        res = 2.0f * rad / ((float)GRID_SIZE);
-        density_res = 2.0f * rad / ((float)DENSITY_GRID_SIZE);
-        clust_res = 2.0f * rad / ((float)CLUST_GRID_SIZE);
-        A = pA;
+        radius = params.radius;
+        res = 2.0f * params.radius / ((float)GRID_SIZE);
+        density_res = 2.0f * params.radius / ((float)DENSITY_GRID_SIZE);
+        clust_res = 2.0f * params.radius / ((float)CLUST_GRID_SIZE);
+        A = params.pA;
         B = std::pow(res, dim) / A;
         viscosity = params.viscosity;
     }
