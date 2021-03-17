@@ -2,6 +2,8 @@
 #include <array>
 #include <fstream>
 
+#include "Renderer/SimulatorProperties.hpp"
+
 #include "interface.hpp"
 #include "timer.hpp"
 
@@ -65,15 +67,33 @@ struct Simulator2D: public SimulatorInterface
       pA: some constant that should be 2.0
       visc: how fast particles loose speed (must be within [0, 1])
      */
-    Simulator2D(float rad, float pA = 2.0f, float visc = 1.0f):
-        radius(rad),
-        res(2.0f*rad/((float) GRID_SIZE)),
-        density_res(2.0f*rad/((float) DENSITY_GRID_SIZE)),
-        clust_res(2.0f*rad/((float) CLUST_GRID_SIZE)),
-        A(pA),
-        B(std::pow(res, dim)/A),
-        viscosity(visc)
+    Simulator2D(float rad, float pA = 2.0f, float visc = 1.0f)
+        : radius(rad), res(2.0f * rad / ((float)GRID_SIZE)),
+          density_res(2.0f * rad / ((float)DENSITY_GRID_SIZE)),
+          clust_res(2.0f * rad / ((float)CLUST_GRID_SIZE)), A(pA),
+          B(std::pow(res, dim) / A), viscosity(visc)
     {}
+
+    void
+    update_param(Simulator_Params params)
+    {
+        float rad = 1.0f;
+        float pA = 2.0f;
+
+        radius = rad;
+        res = 2.0f * rad / ((float)GRID_SIZE);
+        density_res = 2.0f * rad / ((float)DENSITY_GRID_SIZE);
+        clust_res = 2.0f * rad / ((float)CLUST_GRID_SIZE);
+        A = pA;
+        B = std::pow(res, dim) / A;
+        viscosity = params.viscosity;
+    }
+
+    void
+    clear_particle()
+    {
+        particles.clear();
+    }
 
     void
     set_dt(float pdt)
