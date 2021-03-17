@@ -32,8 +32,10 @@ class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer
     QOpenGLFramebufferObject *
     createFramebufferObject(const QSize &size) override;
 
-    Simulator simulator = Simulator(1.0f, 2.0f, 0.9f);
-    
+    void resetSimulation();
+
+    Simulator simulator = Simulator(0.5f, 2.0f, 0.4f);
+
   private:
     ImageRenderer _imageRenderer;
     SdfRenderer2D _sdfRenderer2D;

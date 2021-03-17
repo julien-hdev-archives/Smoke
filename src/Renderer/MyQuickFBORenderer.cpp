@@ -18,23 +18,36 @@ MyQuickFBORenderer::MyQuickFBORenderer(QQuickWindow &window) : _window(window)
 
     for (auto i = 0; i < 10000; ++i)
     {
-        float vx = uniform_dist(e1)*0.001;
-        float vy = uniform_dist(e1)*0.001;
-        float x = uniform_dist(e1)*0.2;
-        float y = uniform_dist(e1)*0.2;
-        Particle part =
-            {
-                glm::vec3(x, y, 0),
-                glm::vec3(vx, vy, 0),
-                0.,
-                0.
-            };
-        
+        float vx = uniform_dist(e1) * 0.001;
+        float vy = uniform_dist(e1) * 0.001;
+        float x = uniform_dist(e1) * 0.2;
+        float y = uniform_dist(e1) * 0.2;
+        Particle part = { glm::vec3(x, y, 0), glm::vec3(vx, vy, 0), 0., 0. };
+
         simulator.insert_particle(part);
     }
+}
 
+void
+MyQuickFBORenderer::resetSimulation()
+{
 
+    std::random_device r;
+    std::default_random_engine e1(r());
+    std::uniform_real_distribution<float> uniform_dist(-1.0, 1.0);
 
+    simulator.clear_particle();
+
+    for (auto i = 0; i < 10000; ++i) // simulator.nbparticules
+    {
+        float vx = uniform_dist(e1) * 0.001;
+        float vy = uniform_dist(e1) * 0.001;
+        float x = uniform_dist(e1) * 0.2;
+        float y = uniform_dist(e1) * 0.2;
+        Particle part = { glm::vec3(x, y, 0), glm::vec3(vx, vy, 0), 0., 0. };
+
+        simulator.insert_particle(part);
+    }
 }
 
 void
@@ -45,6 +58,13 @@ MyQuickFBORenderer::synchronize(QQuickFramebufferObject *item)
     _sdfRendererParams = quickFBO->sdfRenderer_Params();
     quickFBO->camera().update();
     _cameraInfos = quickFBO->camera().getInfos();
+
+    auto simulatorParams = quickFBO->simulator_Params();
+    simulator.update_param(simulatorParams);
+
+    // Reset Simulation
+    if (simulatorParams.haveToReset >= 0.99) resetSimulation();
+    quickFBO->setHaveToReset(0.f);
 }
 
 void
