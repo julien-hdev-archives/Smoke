@@ -68,6 +68,29 @@ ApplicationWindow {
                     CButtonIcon { width: 50; height: 40; icon : Icons.lightbulb }
                     CButtonIcon { width: 50; height: 40; icon : Icons.wb_sunny }
                 }
+
+                /*
+                ListView {
+                        anchors.right : parent.right
+                        anchors.rightMargin : 30
+
+                        width: 180; height: 200
+                        model: fbo.sdfRendererProperties.attributes
+
+                        delegate: Slider {
+                            value: object.value
+                            from : 0
+                            to : 1
+                            stepSize : 0.01
+                            onMoved: {
+                                object.value = value
+                            }
+                        }
+                }*/
+
+
+                
+
             }
 
             MyQuickFBO {
@@ -88,13 +111,15 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            z: 2
             id : controllers
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredWidth : 35 // %
-            spacing : 1
+            spacing : 0
 
             ColumnLayout {
+                z: 2
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight : 35 // %
@@ -126,6 +151,7 @@ ApplicationWindow {
                 spacing : 1
 
                 HeaderSection { 
+                    z: 2
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.preferredHeight : 30 
@@ -133,32 +159,20 @@ ApplicationWindow {
                     Layout.maximumHeight : 35 
                     text : "Components"
                 }
-
-                ListView {
-                       
-                        anchors.rightMargin : 30
-
-                        width: 180; height: 200
-                        model: fbo.simulatorProperties.attributes
-
-                        delegate: Slider {
-                            width: 180; height: 30
-                            value: object.value
-                            from : object.from
-                            to : object.to
-                            stepSize : object.step
-                            onMoved: {
-                                object.value = value
-                            }
-                        }
-                        
-                }
-
+     
                 Rectangle {
+                            
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         Layout.preferredHeight : 55 // %
                         color : Palette.window
+                        z: 1
+
+                        ListView {
+                            anchors.fill: parent
+                            model: fbo.sdfRendererProperties.attributes
+                            delegate: AttributeLoader { attribute : object }
+                        }
                     }                
                 }
             }

@@ -36,6 +36,6 @@ QtObject {
     readonly property color alternateBase: "#2D2D2D"
     readonly property color noRole: "#000000"
     readonly property color toolTipBase: "#FFFFDC"
-    readonly property color toolTipText: "#000000"
+    readonly property color toolTipText: "#FECC81"
 
 }

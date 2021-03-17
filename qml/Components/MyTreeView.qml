@@ -45,14 +45,13 @@ Item {
     }
 
     TreeView {
-
         anchors.fill: parent
         model: faketreeModel
 
         style: TreeViewStyle {
             indentation : 30
             backgroundColor : Palette.window 
-            frame: Rectangle {color: "transparent"; border.width : 0 }
+            frame: Rectangle { color: "transparent"; border.width : 1;  border.color : Palette.darkestGrey}
                    
 
             headerDelegate:  Rectangle { 

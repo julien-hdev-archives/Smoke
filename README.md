@@ -1,5 +1,7 @@
+<!-- omit in toc -->
 # Real-Time Volumetric Editor
 
+<!-- omit in toc -->
 ## Table of Contents
 
 - [Description](#description)
@@ -13,6 +15,7 @@ This is a C++ project made thanks to Qt Quick 2 and OpenGL.
 
 ## Contributors
 
+- Clément CHOMICKI
 - Jules FOUCHY
 - Julien HAUDEGOND
 - Antoine LIBERT

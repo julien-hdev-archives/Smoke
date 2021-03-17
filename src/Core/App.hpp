@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Core/AppManager.hpp"
+
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
 
 class App : public QGuiApplication
 {
@@ -16,4 +17,5 @@ class App : public QGuiApplication
 
   private:
     QQmlApplicationEngine _engine;
+    AppManager _manager;
 };
