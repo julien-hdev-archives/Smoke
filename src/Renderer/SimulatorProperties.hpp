@@ -7,6 +7,7 @@
 
 struct Simulator_Params
 {
+    float nbParticules = 10000.f;
     float haveToReset = 0.f;
     float radius = 1.0f;
     float viscosity = 0.4f;

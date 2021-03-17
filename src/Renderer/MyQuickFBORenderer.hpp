@@ -33,6 +33,7 @@ class MyQuickFBORenderer : public QQuickFramebufferObject::Renderer
     createFramebufferObject(const QSize &size) override;
 
     void resetSimulation();
+    int nb_Particules = 10000;
 
     Simulator simulator = Simulator(0.5f, 2.0f, 0.4f);
 

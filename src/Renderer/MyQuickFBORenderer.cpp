@@ -16,7 +16,7 @@ MyQuickFBORenderer::MyQuickFBORenderer(QQuickWindow &window) : _window(window)
     std::default_random_engine e1(r());
     std::uniform_real_distribution<float> uniform_dist(-1.0, 1.0);
 
-    for (auto i = 0; i < 10000; ++i)
+    for (auto i = 0; i < nb_Particules; ++i)
     {
         float vx = uniform_dist(e1) * 0.001;
         float vy = uniform_dist(e1) * 0.001;
@@ -38,7 +38,7 @@ MyQuickFBORenderer::resetSimulation()
 
     simulator.clear_particle();
 
-    for (auto i = 0; i < 10000; ++i) // simulator.nbparticules
+    for (auto i = 0; i < nb_Particules; ++i) // simulator.nbparticules
     {
         float vx = uniform_dist(e1) * 0.001;
         float vy = uniform_dist(e1) * 0.001;
@@ -62,6 +62,7 @@ MyQuickFBORenderer::synchronize(QQuickFramebufferObject *item)
     auto simulatorParams = quickFBO->simulator_Params();
     simulator.update_param(simulatorParams);
 
+    nb_Particules = std::floor(simulatorParams.nbParticules);
     // Reset Simulation
     if (simulatorParams.haveToReset >= 0.99) resetSimulation();
     quickFBO->setHaveToReset(0.f);
