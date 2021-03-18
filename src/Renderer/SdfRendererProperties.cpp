@@ -9,8 +9,7 @@ SdfRendererProperties::SdfRendererProperties(QObject *parent)
     auto res = connect(this, SIGNAL(valueChanged()), parent, SLOT(update()));
     if (!static_cast<bool>(res))
     {
-        throw new std::exception(
-            "The connection between signal and slot cannot be done.");
+        throw "The connection between signal and slot cannot be done.";
     }
 
     // Get the default attribute values.

@@ -1,4 +1,4 @@
-#include "SdfRenderer.hpp"
+#include "SdfRenderer3D.hpp"
 
 #include "Camera/CameraInfos.hpp"
 #include "SdfRendererProperties.hpp"
@@ -7,13 +7,13 @@
 
 SdfRenderer::SdfRenderer()
     : _rendererSrc(MyFile::LoadToString(
-        "shaders/rendering/SDF_Test1.fs.glsl")) // We don't provide choice for
+        "shaders/rendering/3D.fs.glsl")) // We don't provide choice for
                                                 // the rendering code used
                                                 // because setting the uniforms
                                                 // in render() depends on the
                                                 // render code
 {
-    setScene(MyFile::LoadToString("shaders/simulation/SDF_Test1.fs.glsl"));
+    setScene(MyFile::LoadToString("shaders/simulation/3D.fs.glsl"));
 }
 
 void

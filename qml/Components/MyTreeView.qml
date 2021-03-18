@@ -14,6 +14,7 @@ Item {
         id: faketreeModel
         roles: ["name","typeName"]
 
+
         TreeElement {
             property string name: "Collection 1"
             property string typeName: "Collection"
@@ -45,14 +46,14 @@ Item {
     }
 
     TreeView {
-
         anchors.fill: parent
         model: faketreeModel
+
 
         style: TreeViewStyle {
             indentation : 30
             backgroundColor : Palette.window 
-            frame: Rectangle {color: "transparent"; border.width : 0 }
+            frame: Rectangle { color: "transparent"; border.width : 1;  border.color : Palette.darkestGrey}
                    
 
             headerDelegate:  Rectangle { 
@@ -107,44 +108,3 @@ Item {
             }
     }   
 }
-
-
-
-
-/*
-                onDoubleClicked: {
-                    var element = fakePlace.createObject(treemodel);
-                    treemodel.insertNode(element, index, -1);
-
-                onPressAndHold: {
-                    var element = treemodel.getNodeByIndex(index);
-                    messageDialog.text = element.type + ": " + element.name + "\nPopulation: " + element.population;
-                    messageDialog.open();
-                }
-                        Component {
-        id: fakePlace
-        TreeElement {
-            property string name: getFakePlaceName()
-            property string population: getFakePopulation()
-            property string type: "Fake place"
-            function getFakePlaceName() {
-                var rez = "";
-                for(var i = 0;i < Math.round(3 + Math.random() * 7);i ++) {
-                    rez += String.fromCharCode(97 + Math.round(Math.random() * 25));
-                }
-                return rez.charAt(0).toUpperCase() + rez.slice(1);
-            }
-            function getFakePopulation() {
-                var num = Math.round(Math.random() * 100000000);
-                num = num.toString().split("").reverse().join("");
-                num = num.replace(/(\d{3})/g, '$1,');
-                num = num.split("").reverse().join("");
-                return num[0] === ',' ? num.slice(1) : num;
-            }
-        }
-    }
-
-
-
-
-                }*/

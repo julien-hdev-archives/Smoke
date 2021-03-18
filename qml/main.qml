@@ -10,7 +10,6 @@ import SceneGraphRendering 1.0
 import MyTree 1.0
 import Utils 1.0
 import Components 1.0
-import "content"
 
 
 ApplicationWindow {
@@ -69,6 +68,7 @@ ApplicationWindow {
                     CButtonIcon { width: 50; height: 40; icon : Icons.wb_sunny }
                 }
 
+                /*
                 ListView {
                         anchors.right : parent.right
                         anchors.rightMargin : 30
@@ -85,7 +85,11 @@ ApplicationWindow {
                                 object.value = value
                             }
                         }
-                }
+                }*/
+
+
+                
+
             }
 
             MyQuickFBO {
@@ -106,13 +110,15 @@ ApplicationWindow {
         }
 
         ColumnLayout {
+            z: 2
             id : controllers
             Layout.fillWidth: true
             Layout.fillHeight: true
             Layout.preferredWidth : 35 // %
-            spacing : 1
+            spacing : 0
 
             ColumnLayout {
+                z: 2
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight : 35 // %
@@ -144,6 +150,7 @@ ApplicationWindow {
                 spacing : 1
 
                 HeaderSection { 
+                    z: 2
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     Layout.preferredHeight : 30 
@@ -151,113 +158,22 @@ ApplicationWindow {
                     Layout.maximumHeight : 35 
                     text : "Components"
                 }
-
+     
                 Rectangle {
+                            
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         Layout.preferredHeight : 55 // %
                         color : Palette.window
+                        z: 1
+
+                        ListView {
+                            anchors.fill: parent
+                            model: fbo.simulatorProperties.attributes
+                            delegate: AttributeLoader { attribute : object }
+                        }
                     }                
                 }
             }
         }
 }
-
-
-
-
- /*
-                    MenuBar {
-                        Menu {
-                            title: qsTr("File")
-                            MenuItem {
-                                text: qsTr("&Open")
-                                onTriggered: console.log("Open action triggered");
-                            }
-                            MenuItem {
-                                text: qsTr("Exit")
-                                onTriggered: Qt.quit();
-                            }
-                        }
-                    }
-                    */
-
-
-
-
-                                        /*
-     BorderImage {
-        border.bottom: 8
-
-        width: parent.width
-        height: 100
-
-        Rectangle {
-            id: backButton
-            width: opacity ? 60 : 0
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            opacity: stackView.depth > 1 ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            height: 60
-            radius: 4
-            color: backmouse.pressed ? "#222" : "transparent"
-            Behavior on opacity { NumberAnimation{} }
-            Image {
-                anchors.verticalCenter: parent.verticalCenter
-                source: "images/navigation_previous_item.png"
-            }
-            MouseArea {
-                id: backmouse
-                anchors.fill: parent
-                anchors.margins: -10
-                onClicked: stackView.pop()
-            }
-        }
-
-
-     ListModel {
-        id: pageModel
-        ListElement {
-            title: "Buttons"
-            page: "content/ButtonPage.qml"
-        }
-        ListElement {
-            title: "Sliders"
-            page: "content/SliderPage.qml"
-        }
-    }*/
-
-    /*
-    StackView {
-        id: stackView
-        anchors.top: head2.bottom
-        anchors.fill: parent
-
-        focus: true
-        Keys.onReleased: if (event.key === Qt.Key_Back && stackView.depth > 1) {
-                             stackView.pop();
-                             event.accepted = true;
-                         }
-
-        initialItem: Item {
-            width: parent.width
-            height: parent.height
-            ListView {
-                model: pageModel
-                anchors.fill: parent
-                delegate: AndroidDelegate {
-                    text: title
-                    onClicked: stackView.push(Qt.resolvedUrl(page))
-                }
-            }
-
-
-
-        }
-
-
-
-
-    }*/

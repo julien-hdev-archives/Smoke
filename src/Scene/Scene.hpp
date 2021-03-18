@@ -5,9 +5,6 @@
 
 #include <QVector>
 
-#include "Camera/Camera.hpp"
-#include "Renderer/SdfRenderer.hpp"
-
 class Entity;
 class Mesh;
 class Triangle2D;

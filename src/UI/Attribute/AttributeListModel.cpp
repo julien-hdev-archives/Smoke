@@ -10,8 +10,7 @@ AttributeListModel::AttributeListModel(QObject *parent)
                            SIGNAL(valueChanged()));
         if (!static_cast<bool>(res))
         {
-            throw new std::exception(
-                "The connection between signals cannot be done.");
+            throw "The connection between signals cannot be done.";
         }
     }
 }
@@ -19,8 +18,8 @@ AttributeListModel::AttributeListModel(QObject *parent)
 void
 AttributeListModel::append(QObject *obj)
 {
-    throw new std::exception("AttributeListModel should only call the "
-                             "overload: append(Attribute*).");
+    throw "AttributeListModel should only call the "
+        "overload: append(Attribute*).";
 }
 
 void
@@ -29,7 +28,7 @@ AttributeListModel::append(Attribute *attr)
     ObjectListModel::append(attr);
 }
 
-const Attribute *
+Attribute *
 AttributeListModel::find(const QString &name) const
 {
     for (const auto obj : _data)

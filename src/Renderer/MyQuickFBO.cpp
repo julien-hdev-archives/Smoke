@@ -5,7 +5,8 @@
 
 MyQuickFBO::MyQuickFBO(QQuickItem *parent)
     : QQuickFramebufferObject(parent),
-      _sdfRendererProperties(new SdfRendererProperties(this))
+      _sdfRendererProperties(new SdfRendererProperties(this)),
+      _simulatorProperties(new SimulatorProperties(this))
 {}
 
 QQuickFramebufferObject::Renderer *
