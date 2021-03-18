@@ -16,13 +16,13 @@ SimulatorProperties::SimulatorProperties(QObject *parent)
     // Initialize each attribute.
     // Only one for now, for the test.
 
-    _attributes->append(new FloatAttribute("nbParticules", "Number of particules",
-                                           initialParams.nbParticules, 0.f, 50000.f,
-                                           1.0f, _attributes));
+    _attributes->append(new IntAttribute("nbParticules", "Number of particules",
+                                           initialParams.nbParticules, 0, 50000,
+                                           1., _attributes));
 
-    _attributes->append(new FloatAttribute("haveToReset", "Have To Reset",
-                                           initialParams.haveToReset, 0.f, 1.f,
-                                           1.f, _attributes));
+    _attributes->append(new IntAttribute("haveToReset", "Reset particules",
+                                           initialParams.haveToReset, 0, 1,
+                                           1, _attributes));
     
     _attributes->append(new FloatAttribute("radius", "Radius",
                                            initialParams.radius, 0.1f, 3.0f,
@@ -42,8 +42,8 @@ SimulatorProperties::simulator_Params() const
 {
     Simulator_Params params;
 
-    params.nbParticules = _attributes->find("nbParticules")->getValue().toFloat();
-    params.haveToReset = _attributes->find("haveToReset")->getValue().toFloat();
+    params.nbParticules = _attributes->find("nbParticules")->getValue().toInt();
+    params.haveToReset = _attributes->find("haveToReset")->getValue().toInt();
     params.radius = _attributes->find("radius")->getValue().toFloat();
     params.viscosity = _attributes->find("viscosity")->getValue().toFloat();
     params.pA = _attributes->find("pA")->getValue().toFloat();

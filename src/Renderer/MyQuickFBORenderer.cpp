@@ -38,7 +38,7 @@ MyQuickFBORenderer::resetSimulation()
 
     simulator.clear_particle();
 
-    for (auto i = 0; i < nb_Particules; ++i) // simulator.nbparticules
+    for (auto i = 0; i < nb_Particules; ++i) 
     {
         float vx = uniform_dist(e1) * 0.001;
         float vy = uniform_dist(e1) * 0.001;
@@ -64,8 +64,8 @@ MyQuickFBORenderer::synchronize(QQuickFramebufferObject *item)
 
     nb_Particules = std::floor(simulatorParams.nbParticules);
     // Reset Simulation
-    if (simulatorParams.haveToReset >= 0.99) resetSimulation();
-    quickFBO->setHaveToReset(0.f);
+    if (simulatorParams.haveToReset == 1) resetSimulation();
+    quickFBO->setHaveToReset(0);
 }
 
 void

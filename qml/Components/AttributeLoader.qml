@@ -14,6 +14,7 @@ Item {
 
   
         sourceComponent: {
+            if(attribute.type == 1 && attribute.value == "haveToReset") return buttonInt
             switch(attribute.type)
             {
                 case 0: return sliderFloat
@@ -25,4 +26,5 @@ Item {
 
     Component { id : sliderFloat; AttributeSliderFloat {attr : attribute}}
     Component { id : sliderInt; AttributeSliderInt {attr : attribute}}
+    Component { id : buttonInt; AttributeButtonInt {attr : attribute}}
 }

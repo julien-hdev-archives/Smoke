@@ -2,13 +2,14 @@
 
 #include "UI/Attribute/AttributeListModel.hpp"
 #include "UI/Attribute/FloatAttribute.hpp"
+#include "UI/Attribute/IntAttribute.hpp"
 
 #include <QObject>
 
 struct Simulator_Params
 {
-    float nbParticules = 10000.f;
-    float haveToReset = 0.f;
+    int nbParticules = 10000.f;
+    int haveToReset = 0.f;
     float radius = 1.0f;
     float viscosity = 0.4f;
     float pA = 2.0f;

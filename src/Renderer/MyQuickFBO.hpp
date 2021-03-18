@@ -40,7 +40,7 @@ class MyQuickFBO : public QQuickFramebufferObject
     }
 
     void
-    setHaveToReset(float toReset) const
+    setHaveToReset(int toReset) const
     {
         _simulatorProperties->findAttribute("haveToReset")->setValue(toReset);
     }
