@@ -170,7 +170,7 @@ ApplicationWindow {
 
                         ListView {
                             anchors.fill: parent
-                            model: fbo.sdfRendererProperties.attributes
+                            model: fbo.simulatorProperties.attributes
                             delegate: AttributeLoader { attribute : object }
                         }
                     }                
