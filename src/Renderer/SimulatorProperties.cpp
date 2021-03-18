@@ -32,11 +32,11 @@ SimulatorProperties::SimulatorProperties(QObject *parent)
                                            0.1f, _attributes));
 
     _attributes->append(new FloatAttribute("viscosity", "Viscosity",
-                                           initialParams.viscosity, 0.1f, 0.5f,
+                                           initialParams.viscosity, 0.1f, 3.5f,
                                            0.01f, _attributes));
 
     _attributes->append(new FloatAttribute("pA", "pA",
-                                           initialParams.pA, 0.1f, 3.0f,
+                                           initialParams.pA, 0.1f, 5.0f,
                                            0.1f, _attributes));
 }
 
