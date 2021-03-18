@@ -14,7 +14,7 @@ Item {
 
   
         sourceComponent: {
-            if(attribute.type == 1 && attribute.value == "haveToReset") return buttonInt
+            if(attribute.type == 1 && attribute.label == "Reset particules") return buttonInt
             switch(attribute.type)
             {
                 case 0: return sliderFloat
