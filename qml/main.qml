@@ -86,10 +86,6 @@ ApplicationWindow {
                             }
                         }
                 }*/
-
-
-                
-
             }
 
             MyQuickFBO {
